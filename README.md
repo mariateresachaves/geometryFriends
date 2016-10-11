@@ -9,3 +9,6 @@ Artigo: http://ieeexplore.ieee.org/document/7317938/?arnumber=7317938
 Tese do Fisher: https://project.dke.maastrichtuniversity.nl/games/files/msc/Fischer_thesis.pdf
 
 Código da tese do Fisher: https://github.com/Tidusmaster/GeometryFriendsMasterThesis
+
+
+Publicações: http://gaips.inesc-id.pt/geometryfriends/?page_id=476
