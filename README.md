@@ -7,3 +7,5 @@ Dissertação: https://fenix.tecnico.ulisboa.pt/downloadFile/844820067124563/681
 Artigo: http://ieeexplore.ieee.org/document/7317938/?arnumber=7317938
 
 Tese do Fisher: https://project.dke.maastrichtuniversity.nl/games/files/msc/Fischer_thesis.pdf
+
+Código da tese do Fisher: https://github.com/Tidusmaster/GeometryFriendsMasterThesis
