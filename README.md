@@ -10,5 +10,6 @@ Tese do Fisher: https://project.dke.maastrichtuniversity.nl/games/files/msc/Fisc
 
 Código da tese do Fisher: https://github.com/Tidusmaster/GeometryFriendsMasterThesis
 
+Competiço 2015: http://www.digra.org/wp-content/uploads/digital-library/paper_337.pdf
 
 Publicações: http://gaips.inesc-id.pt/geometryfriends/?page_id=476
