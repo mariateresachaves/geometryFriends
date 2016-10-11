@@ -12,4 +12,6 @@ Código da tese do Fisher: https://github.com/Tidusmaster/GeometryFriendsMasterT
 
 Competição 2015: http://www.digra.org/wp-content/uploads/digital-library/paper_337.pdf
 
+Artigo Subgoal a*: http://gaips.inesc-id.pt/geometryfriends/wp-content/uploads/2015/02/GFCompetitionDescription.pdf
+
 Publicações: http://gaips.inesc-id.pt/geometryfriends/?page_id=476
