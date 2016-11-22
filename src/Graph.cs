@@ -7,5 +7,6 @@ namespace GeometryFriendsAgents
 {
     class Graph
     {
+
     }
 }
