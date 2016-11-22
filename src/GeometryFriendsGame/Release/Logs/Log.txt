@@ -1,0 +1,129 @@
+----------------NEW LOG SESSION----------------
+[2016/10/18-18:49:17]WiimoteInput not found.
+[2016/10/18-18:49:18]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\diagnosticFont.spritefont - using regular font style.
+[2016/10/18-18:49:18]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\gameFont.spritefont - using regular font style.
+[2016/10/18-18:49:18]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/diagnosticFont.spritefont - using regular font style.
+[2016/10/18-18:49:18]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/menuFont.spritefont - using regular font style.
+[2016/10/18-18:49:18]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/titleFont.spritefont - using regular font style.
+[2016/10/18-18:49:18]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/subtitleFont.spritefont - using regular font style.
+[2016/10/18-18:49:18]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/detailsFont.spritefont - using regular font style.
+[2016/10/18-18:49:18]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\frameRateCounterFont.spritefont - using regular font style.
+[2016/10/18-18:49:18]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\frameRateCounterFont.spritefont - using regular font style.
+[2016/10/18-18:49:28]WARN: Agent implementation [ AgentsWithPrediction.dll, RandomAgents.dll, RapidlyExploringRandomTreeAgents.dll, ReinforcementLearningAgents.dll, SubGoalAStarAgents.dll ] found in '{game_dir}/Agents/' could not be loaded.
+
+This is usually because you have downloaded the game from the internet and extracted the game files with a program that blocks the dlls from being loaded. You must unblock the dll files so that they can be loaded. In Windows right-click on each dll file -> properties -> Unblock (at the end of the General properties pane).
+[2016/10/18-18:49:30]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\diagnosticFont.spritefont - using regular font style.
+[2016/10/18-18:49:30]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/detailsFont.spritefont - using regular font style.
+[2016/10/18-18:49:31]WARN: Agent implementation [ AgentsWithPrediction.dll, RandomAgents.dll, RapidlyExploringRandomTreeAgents.dll, ReinforcementLearningAgents.dll, SubGoalAStarAgents.dll ] found in '{game_dir}/Agents/' could not be loaded.
+
+This is usually because you have downloaded the game from the internet and extracted the game files with a program that blocks the dlls from being loaded. You must unblock the dll files so that they can be loaded. In Windows right-click on each dll file -> properties -> Unblock (at the end of the General properties pane).
+[2016/10/18-18:49:31]WARN: AgentsManager: No geometry found in the simulator that was representative of the circle character.
+[2016/10/18-18:49:31]WARN: AgentsManager: No geometry found in the simulator that was representative of the rectangle character.
+[2016/10/18-18:49:31]WARN: ActionSimulator: No geometry found in the simulator that was representative of the circle character.
+[2016/10/18-18:49:31]WARN: ActionSimulator: No geometry found in the simulator that was representative of the rectangle character.
+[2016/10/18-18:49:31]INFO: Circle Agent - Count Information Obstacles: 3 RectanglePlatforms: 0 CirclePlatforms: 0 CollectiblesLeft: 3
+[2016/10/18-18:49:31]INFO: Circle Agent - Rectangle Representation X: 1064 Y: 696 VelX: 0 VelY: 0 Height: 100
+[2016/10/18-18:49:31]INFO: Circle Agent - Circle Representation X: 1176 Y: 712 VelX: 0 VelY: 0 Radius: 40
+[2016/10/18-18:49:31]INFO: Circle Agent - Obstacle Representation X: 424 Y: 704 Width: 768 Height: 112
+[2016/10/18-18:49:31]INFO: Circle Agent - Obstacle Representation X: 280 Y: 408 Width: 480 Height: 32
+[2016/10/18-18:49:31]INFO: Circle Agent - Obstacle Representation X: 504 Y: 504 Width: 32 Height: 160
+[2016/10/18-18:49:31]INFO: Circle Agent - Collectible Representation X: 72 Y: 472
+[2016/10/18-18:49:31]INFO: Circle Agent - Collectible Representation X: 1032 Y: 136
+[2016/10/18-18:49:31]INFO: Circle Agent - Collectible Representation X: 72 Y: 88
+[2016/10/18-18:49:31]WARN: AgentsManager: No geometry found in the simulator that was representative of the circle character.
+[2016/10/18-18:49:31]WARN: AgentsManager: No geometry found in the simulator that was representative of the rectangle character.
+[2016/10/18-18:49:31]WARN: ActionSimulator: No geometry found in the simulator that was representative of the circle character.
+[2016/10/18-18:49:31]WARN: ActionSimulator: No geometry found in the simulator that was representative of the rectangle character.
+----------------NEW LOG SESSION----------------
+[2016/10/18-18:51:45]WiimoteInput not found.
+[2016/10/18-18:51:46]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\diagnosticFont.spritefont - using regular font style.
+[2016/10/18-18:51:46]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\gameFont.spritefont - using regular font style.
+[2016/10/18-18:51:46]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/diagnosticFont.spritefont - using regular font style.
+[2016/10/18-18:51:46]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/menuFont.spritefont - using regular font style.
+[2016/10/18-18:51:46]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/titleFont.spritefont - using regular font style.
+[2016/10/18-18:51:46]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/subtitleFont.spritefont - using regular font style.
+[2016/10/18-18:51:46]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/detailsFont.spritefont - using regular font style.
+[2016/10/18-18:51:46]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\frameRateCounterFont.spritefont - using regular font style.
+[2016/10/18-18:51:46]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\frameRateCounterFont.spritefont - using regular font style.
+[2016/10/18-18:51:52]WARN: Agent implementation [ AgentsWithPrediction.dll, RandomAgents.dll, RapidlyExploringRandomTreeAgents.dll, ReinforcementLearningAgents.dll, SubGoalAStarAgents.dll ] found in '{game_dir}/Agents/' could not be loaded.
+
+This is usually because you have downloaded the game from the internet and extracted the game files with a program that blocks the dlls from being loaded. You must unblock the dll files so that they can be loaded. In Windows right-click on each dll file -> properties -> Unblock (at the end of the General properties pane).
+[2016/10/18-18:51:58]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\diagnosticFont.spritefont - using regular font style.
+[2016/10/18-18:51:58]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/detailsFont.spritefont - using regular font style.
+[2016/10/18-18:51:59]WARN: Agent implementation [ AgentsWithPrediction.dll, RandomAgents.dll, RapidlyExploringRandomTreeAgents.dll, ReinforcementLearningAgents.dll, SubGoalAStarAgents.dll ] found in '{game_dir}/Agents/' could not be loaded.
+
+This is usually because you have downloaded the game from the internet and extracted the game files with a program that blocks the dlls from being loaded. You must unblock the dll files so that they can be loaded. In Windows right-click on each dll file -> properties -> Unblock (at the end of the General properties pane).
+[2016/10/18-18:51:59]WARN: AgentsManager: No geometry found in the simulator that was representative of the circle character.
+[2016/10/18-18:51:59]WARN: AgentsManager: No geometry found in the simulator that was representative of the rectangle character.
+[2016/10/18-18:51:59]WARN: ActionSimulator: No geometry found in the simulator that was representative of the circle character.
+[2016/10/18-18:51:59]WARN: ActionSimulator: No geometry found in the simulator that was representative of the rectangle character.
+[2016/10/18-18:51:59]INFO: Circle Agent - Count Information Obstacles: 6 RectanglePlatforms: 0 CirclePlatforms: 1 CollectiblesLeft: 4
+[2016/10/18-18:51:59]INFO: Circle Agent - Rectangle Representation X: 600 Y: 376 VelX: 0 VelY: 0 Height: 100
+[2016/10/18-18:51:59]INFO: Circle Agent - Circle Representation X: 104 Y: 88 VelX: 0 VelY: 0 Radius: 40
+[2016/10/18-18:51:59]INFO: Circle Agent - Obstacle Representation X: 168 Y: 168 Width: 256 Height: 32
+[2016/10/18-18:51:59]INFO: Circle Agent - Obstacle Representation X: 280 Y: 280 Width: 32 Height: 192
+[2016/10/18-18:51:59]INFO: Circle Agent - Obstacle Representation X: 168 Y: 456 Width: 256 Height: 32
+[2016/10/18-18:51:59]INFO: Circle Agent - Obstacle Representation X: 1104 Y: 456 Width: 272 Height: 32
+[2016/10/18-18:51:59]INFO: Circle Agent - Obstacle Representation X: 984 Y: 264 Width: 32 Height: 224
+[2016/10/18-18:51:59]INFO: Circle Agent - Obstacle Representation X: 1120 Y: 168 Width: 240 Height: 32
+[2016/10/18-18:51:59]INFO: Circle Agent - Circle Platform Representation X: 632 Y: 456 Width: 672 Height: 32
+[2016/10/18-18:51:59]INFO: Circle Agent - Collectible Representation X: 152 Y: 280
+[2016/10/18-18:51:59]INFO: Circle Agent - Collectible Representation X: 1112 Y: 264
+[2016/10/18-18:51:59]INFO: Circle Agent - Collectible Representation X: 1176 Y: 88
+[2016/10/18-18:51:59]INFO: Circle Agent - Collectible Representation X: 88 Y: 680
+[2016/10/18-18:51:59]WARN: AgentsManager: No geometry found in the simulator that was representative of the circle character.
+[2016/10/18-18:51:59]WARN: AgentsManager: No geometry found in the simulator that was representative of the rectangle character.
+[2016/10/18-18:51:59]WARN: ActionSimulator: No geometry found in the simulator that was representative of the circle character.
+[2016/10/18-18:51:59]WARN: ActionSimulator: No geometry found in the simulator that was representative of the rectangle character.
+----------------NEW LOG SESSION----------------
+[2016/10/25-15:29:58]WiimoteInput not found.
+[2016/10/25-15:29:59]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\diagnosticFont.spritefont - using regular font style.
+[2016/10/25-15:29:59]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\gameFont.spritefont - using regular font style.
+[2016/10/25-15:29:59]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/diagnosticFont.spritefont - using regular font style.
+[2016/10/25-15:29:59]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/menuFont.spritefont - using regular font style.
+[2016/10/25-15:29:59]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/titleFont.spritefont - using regular font style.
+[2016/10/25-15:29:59]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/subtitleFont.spritefont - using regular font style.
+[2016/10/25-15:29:59]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/detailsFont.spritefont - using regular font style.
+[2016/10/25-15:30:00]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\frameRateCounterFont.spritefont - using regular font style.
+[2016/10/25-15:30:00]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\frameRateCounterFont.spritefont - using regular font style.
+[2016/10/25-15:30:13]WARN: Agent implementation [ AgentsWithPrediction.dll, RandomAgents.dll, RapidlyExploringRandomTreeAgents.dll, ReinforcementLearningAgents.dll, SubGoalAStarAgents.dll ] found in '{game_dir}/Agents/' could not be loaded.
+
+This is usually because you have downloaded the game from the internet and extracted the game files with a program that blocks the dlls from being loaded. You must unblock the dll files so that they can be loaded. In Windows right-click on each dll file -> properties -> Unblock (at the end of the General properties pane).
+----------------NEW LOG SESSION----------------
+[2016/11/15-16:44:00]WiimoteInput not found.
+[2016/11/15-16:44:00]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\diagnosticFont.spritefont - using regular font style.
+[2016/11/15-16:44:00]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\gameFont.spritefont - using regular font style.
+[2016/11/15-16:44:00]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/diagnosticFont.spritefont - using regular font style.
+[2016/11/15-16:44:00]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/menuFont.spritefont - using regular font style.
+[2016/11/15-16:44:00]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/titleFont.spritefont - using regular font style.
+[2016/11/15-16:44:00]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/subtitleFont.spritefont - using regular font style.
+[2016/11/15-16:44:00]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/detailsFont.spritefont - using regular font style.
+[2016/11/15-16:44:01]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\frameRateCounterFont.spritefont - using regular font style.
+[2016/11/15-16:44:01]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\frameRateCounterFont.spritefont - using regular font style.
+[2016/11/15-16:44:09]WARN: Agent implementation [ AgentsWithPrediction.dll, RandomAgents.dll, RapidlyExploringRandomTreeAgents.dll, ReinforcementLearningAgents.dll, SubGoalAStarAgents.dll ] found in '{game_dir}/Agents/' could not be loaded.
+
+This is usually because you have downloaded the game from the internet and extracted the game files with a program that blocks the dlls from being loaded. You must unblock the dll files so that they can be loaded. In Windows right-click on each dll file -> properties -> Unblock (at the end of the General properties pane).
+[2016/11/15-16:44:11]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\diagnosticFont.spritefont - using regular font style.
+[2016/11/15-16:44:11]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/detailsFont.spritefont - using regular font style.
+[2016/11/15-16:44:11]WARN: Agent implementation [ AgentsWithPrediction.dll, RandomAgents.dll, RapidlyExploringRandomTreeAgents.dll, ReinforcementLearningAgents.dll, SubGoalAStarAgents.dll ] found in '{game_dir}/Agents/' could not be loaded.
+
+This is usually because you have downloaded the game from the internet and extracted the game files with a program that blocks the dlls from being loaded. You must unblock the dll files so that they can be loaded. In Windows right-click on each dll file -> properties -> Unblock (at the end of the General properties pane).
+[2016/11/15-16:44:12]WARN: AgentsManager: No geometry found in the simulator that was representative of the circle character.
+[2016/11/15-16:44:12]WARN: AgentsManager: No geometry found in the simulator that was representative of the rectangle character.
+[2016/11/15-16:44:12]WARN: ActionSimulator: No geometry found in the simulator that was representative of the circle character.
+[2016/11/15-16:44:12]WARN: ActionSimulator: No geometry found in the simulator that was representative of the rectangle character.
+[2016/11/15-16:44:12]INFO: Circle Agent - Count Information Obstacles: 3 RectanglePlatforms: 0 CirclePlatforms: 0 CollectiblesLeft: 3
+[2016/11/15-16:44:12]INFO: Circle Agent - Rectangle Representation X: 1064 Y: 696 VelX: 0 VelY: 0 Height: 100
+[2016/11/15-16:44:12]INFO: Circle Agent - Circle Representation X: 1176 Y: 712 VelX: 0 VelY: 0 Radius: 40
+[2016/11/15-16:44:12]INFO: Circle Agent - Obstacle Representation X: 424 Y: 704 Width: 768 Height: 112
+[2016/11/15-16:44:12]INFO: Circle Agent - Obstacle Representation X: 280 Y: 408 Width: 480 Height: 32
+[2016/11/15-16:44:12]INFO: Circle Agent - Obstacle Representation X: 504 Y: 504 Width: 32 Height: 160
+[2016/11/15-16:44:12]INFO: Circle Agent - Collectible Representation X: 72 Y: 472
+[2016/11/15-16:44:12]INFO: Circle Agent - Collectible Representation X: 1032 Y: 136
+[2016/11/15-16:44:12]INFO: Circle Agent - Collectible Representation X: 72 Y: 88
+[2016/11/15-16:44:12]WARN: AgentsManager: No geometry found in the simulator that was representative of the circle character.
+[2016/11/15-16:44:12]WARN: AgentsManager: No geometry found in the simulator that was representative of the rectangle character.
+[2016/11/15-16:44:12]WARN: ActionSimulator: No geometry found in the simulator that was representative of the circle character.
+[2016/11/15-16:44:12]WARN: ActionSimulator: No geometry found in the simulator that was representative of the rectangle character.
+[2016/11/15-16:44:26]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content\Fonts\diagnosticFont.spritefont - using regular font style.
+[2016/11/15-16:44:26]WARN: No font style found in spritefont resource: C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Content/Fonts/detailsFont.spritefont - using regular font style.

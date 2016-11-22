@@ -1,0 +1,5 @@
+C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Agents\GeometryFriendsAgents.dll
+C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\Agents\GeometryFriendsAgents.pdb
+C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\obj\Debug\GeometryFriendsAgents.csprojResolveAssemblyReference.cache
+C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\obj\Debug\GeometryFriendsAgents.dll
+C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\obj\Debug\GeometryFriendsAgents.pdb
