@@ -3,3 +3,8 @@ C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame
 C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\obj\Debug\GeometryFriendsAgents.csprojResolveAssemblyReference.cache
 C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\obj\Debug\GeometryFriendsAgents.dll
 C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\obj\Debug\GeometryFriendsAgents.pdb
+C:\Users\up201306842\Desktop\geometryFriends-master\src\obj\Debug\GeometryFriendsAgents.csprojResolveAssemblyReference.cache
+C:\Users\up201306842\Desktop\geometryFriends-master\src\GeometryFriendsGame\Release\Agents\MyAgents.dll
+C:\Users\up201306842\Desktop\geometryFriends-master\src\GeometryFriendsGame\Release\Agents\MyAgents.pdb
+C:\Users\up201306842\Desktop\geometryFriends-master\src\obj\Debug\MyAgents.dll
+C:\Users\up201306842\Desktop\geometryFriends-master\src\obj\Debug\MyAgents.pdb

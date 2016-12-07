@@ -10,6 +10,8 @@ namespace GeometryFriendsAgents
 {
     public class Cell
     {
+        static int next_id;
+
         private int id;
 
         private int[] grid_pos = new int[2];
@@ -19,16 +21,29 @@ namespace GeometryFriendsAgents
         private Boolean bottom = false;                
        
         private Boolean platform = false;
-        private Boolean goal = false;
+        private Boolean falldown_circle = false;
+        private Boolean falldown_rectangle = false;
+
+        private Boolean diamond = false;
 
         private Boolean visited = false;
 
-        /*
-         * GETTERS
-         */
+        private int heuristic_value = 0;
+
+        /*********************/
+        /*      GETTERS      */
+        /*********************/
 
         public Cell()
         {
+        }
+
+        public Cell(int pos_x, int pos_y)
+        {
+            setID(System.Threading.Interlocked.Increment(ref next_id));
+
+            setGridPos(pos_x, pos_y);
+            setCoords();
         }
 
         public int getID()
@@ -76,9 +91,9 @@ namespace GeometryFriendsAgents
             return this.visited;
         }
 
-        public Boolean isGoal()
+        public Boolean isDiamond()
         {
-            return this.goal;
+            return this.diamond;
         }
 
         public Boolean isPlatform()
@@ -86,9 +101,24 @@ namespace GeometryFriendsAgents
             return this.platform;
         }
 
-        /*
-         * SETTERS
-         */
+        public Boolean isFalldownCircle()
+        {
+            return this.falldown_circle;
+        }
+  
+        public Boolean isFalldownRectangle()
+        {
+            return this.falldown_rectangle;
+        }
+
+        public int getHeuristic()
+        {
+            return this.heuristic_value;
+        }
+
+        /*********************/
+        /*      SETTERS      */
+        /*********************/
 
         public void setID(int _id)
         {
@@ -127,9 +157,9 @@ namespace GeometryFriendsAgents
             this.setYCoord();
         }
 
-        public void setGoal(Boolean _goal)
+        public void setDiamond(Boolean _diamond)
         {
-            this.goal = _goal;
+            this.diamond = _diamond;
         }
 
         public void setTop(Boolean _top)
@@ -152,5 +182,69 @@ namespace GeometryFriendsAgents
             this.platform = _platform;
         }
 
+        public void setHeuristic(int _heuristic_value)
+        {
+            this.heuristic_value = _heuristic_value;
+        }
+
+        /*********************/
+        /*      METHODS      */
+        /*********************/
+
+        public int[] upperCell()
+        {
+            if (this.isTop())
+                return null;
+
+            int x = this.getX();
+            int y = this.getY() - 1;
+
+            int[] pos = { x, y };
+
+            return pos;
+        }
+
+        public int[] lowerCell()
+        {
+            if (this.isBottom())
+                return null;
+
+            int x = this.getX();
+            int y = this.getY() + 1;
+
+            int[] pos = { x, y };
+
+            return pos;
+        }
+
+        public int[] leftCell()
+        {
+            int x = this.getX();
+
+            if (x == 0)
+                return null;
+
+            x--;
+            int y = this.getY();
+
+            int[] pos = { x, y };
+
+            return pos;
+        }
+
+        public int[] rightCell()
+        {
+            int x = this.getX();
+
+            if (x == Utils.COL_CELLS-1)
+                return null;
+
+            x++;
+            int y = this.getY();
+
+            int[] pos = { x, y };
+
+            return pos;
+        }
     }
 }

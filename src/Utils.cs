@@ -11,5 +11,7 @@ namespace GeometryFriendsAgents
         public const int HEIGHT = 720;
         public const int GRID_SIZE = 40;
 
+        public const int COL_CELLS = WIDTH/GRID_SIZE;
+        public const int ROW_CELLS = HEIGHT/GRID_SIZE;
     }
 }

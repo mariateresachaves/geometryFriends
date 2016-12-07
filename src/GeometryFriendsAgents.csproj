@@ -8,8 +8,8 @@
     <ProjectGuid>{6F45AB29-7874-4B3D-8073-B2D5F0C1A35F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GeometryFriendsAgents</RootNamespace>
-    <AssemblyName>GeometryFriendsAgents</AssemblyName>
+    <RootNamespace>MyAgents</RootNamespace>
+    <AssemblyName>MyAgents</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,13 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cell.cs" />
     <Compile Include="CircleAgent.cs" />
     <Compile Include="CoopCircle.cs" />
     <Compile Include="CoopRectangle.cs" />
-    <Compile Include="Edge.cs" />
+    <Compile Include="Graph.cs" />
+    <Compile Include="GridMap.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectangleAgent.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

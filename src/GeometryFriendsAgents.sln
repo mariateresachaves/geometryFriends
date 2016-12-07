@@ -8,9 +8,9 @@ EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "GeometryFriends", "GeometryFriendsGame\Release\GeometryFriends.exe", "{B5941093-30E0-4F25-98C0-DB13CC604E43}"
 	ProjectSection(DebuggerProjectSystem) = preProject
 		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release\GeometryFriends.exe
+		Executable = C:\Users\up201306842\Desktop\geometryFriends-master\src\GeometryFriendsGame\Release\GeometryFriends.exe
 		RemoteMachine = DESKTOP-GTNE9BB
-		StartingDirectory = C:\Users\Maria Teresa Chaves\Downloads\GeometryFriendsAgents\GeometryFriendsGame\Release
+		StartingDirectory = C:\Users\up201306842\Desktop\geometryFriends-master\src\GeometryFriendsGame\Release
 		Arguments = --log-to-file
 		Environment = Default
 		LaunchingEngine = 00000000-0000-0000-0000-000000000000
@@ -39,12 +39,12 @@ Global
 		{6F45AB29-7874-4B3D-8073-B2D5F0C1A35F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6F45AB29-7874-4B3D-8073-B2D5F0C1A35F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6F45AB29-7874-4B3D-8073-B2D5F0C1A35F}.Release|x86.ActiveCfg = Release|Any CPU
-		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Debug|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Debug|x86.ActiveCfg = Release|Any CPU
-		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Release|x86.ActiveCfg = Release|Any CPU
+		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Debug|Any CPU.ActiveCfg = Release
+		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Debug|Mixed Platforms.ActiveCfg = Release
+		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Debug|x86.ActiveCfg = Release
+		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Release|Any CPU.ActiveCfg = Release
+		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Release|Mixed Platforms.ActiveCfg = Release
+		{B5941093-30E0-4F25-98C0-DB13CC604E43}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

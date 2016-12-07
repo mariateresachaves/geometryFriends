@@ -59,9 +59,9 @@ namespace GeometryFriendsAgents
             return (get_x() == n.get_x()) && (get_y() == n.get_y()) && (has_diamond() == n.has_diamond());
         }
 
-        /******************/
-        /*      GETs      */
-        /******************/
+        /*********************/
+        /*      GETTERS      */
+        /*********************/
 
         /// <summary>
         /// Function to get the x coordinate.
@@ -126,9 +126,9 @@ namespace GeometryFriendsAgents
             return this.falldown_rectangle;
         }
 
-        /******************/
-        /*      SETs      */
-        /******************/
+        /*********************/
+        /*      SETTERS      */
+        /*********************/
 
         /// <summary>
         /// Function to set the x coordinate value.
