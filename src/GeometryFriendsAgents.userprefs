@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{9C110A16-975B-40E7-BB9A-FAF70F9B5114}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Graph.cs">
+    <Files>
+      <File FileName="AStar.cs" Line="26" Column="23" />
+      <File FileName="MyNode.cs" Line="16" Column="33" />
+      <File FileName="Graph.cs" Line="27" Column="28" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

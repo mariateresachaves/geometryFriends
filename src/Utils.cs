@@ -13,5 +13,7 @@ namespace GeometryFriendsAgents
 
         public const int COL_CELLS = WIDTH/GRID_SIZE;
         public const int ROW_CELLS = HEIGHT/GRID_SIZE;
+
+		public const int INFINITY = 5000;
     }
 }

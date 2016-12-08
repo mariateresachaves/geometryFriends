@@ -1,0 +1,5 @@
+/Users/marciofontes/Documents/GeometryFriends/geometryFriends/src/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/Users/marciofontes/Documents/GeometryFriends/geometryFriends/src/GeometryFriendsGame/Release/Agents/MyAgents.dll.mdb
+/Users/marciofontes/Documents/GeometryFriends/geometryFriends/src/GeometryFriendsGame/Release/Agents/MyAgents.dll
+/Users/marciofontes/Documents/GeometryFriends/geometryFriends/src/obj/Debug/MyAgents.dll
+/Users/marciofontes/Documents/GeometryFriends/geometryFriends/src/obj/Debug/MyAgents.dll.mdb
