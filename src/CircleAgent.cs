@@ -259,26 +259,64 @@ namespace GeometryFriendsAgents
                     {
                         newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(item.X - debugCircleSize / 2, item.Y - debugCircleSize / 2), debugCircleSize, GeometryFriends.XNAStub.Color.GreenYellow));
                     }
-                    //set all the debug information to be read by the agents manager
+					//set all the debug information to be read by the agents manager
 
 
-                    //CANCER
-                    //create grid debug information 
+					//CANCER
+					//create grid debug information 
 
-                    foreach (Cell c in grid.getGridMap())
+                    /*foreach (Cell c in grid.getGridMap())
                     {
                         if (c.isPlatform())
                         {
-                            newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(grid.CelltoWidth(c.getX()), grid.CelltoHeight(c.getY())), 10, GeometryFriends.XNAStub.Color.Green));
+							newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(c.getXCoord()+16, c.getYCoord()+10), 10, GeometryFriends.XNAStub.Color.Green));
                         }
-                        else
+
+                        if (c.isBottom())
                         {
-                            if (c.isBottom())
-                            {
-                                newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(grid.CelltoWidth(c.getX()), grid.CelltoHeight(c.getY())), 10, GeometryFriends.XNAStub.Color.Black));
-                            }
+                            newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(c.getXCoord()+16, c.getYCoord()+10), 10, GeometryFriends.XNAStub.Color.Yellow));
                         }
-                    }
+
+						if (c.isTop()) {
+							newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(c.getXCoord()+16, c.getYCoord()+10), 10, GeometryFriends.XNAStub.Color.Red));
+						}
+                    }*/
+
+					Cell[,] gridMap = grid.getGridMap();
+
+					for (int i = 0; i < Utils.COL_CELLS; i++)
+					{
+						Console.WriteLine("[");
+						for (int j = 0; j < Utils.ROW_CELLS; j++)
+						{
+							Console.WriteLine(gridMap[i, j] + ", ");
+						}
+						Console.WriteLine("]\n");
+					}
+
+					for (int i = 0; i < Utils.COL_CELLS; i++)
+					{
+						for (int j = 0; j < Utils.ROW_CELLS; j++)
+						{
+							Cell c = gridMap[i, j];
+
+							if (c.isPlatform())
+							{
+								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(40,40), GeometryFriends.XNAStub.Color.Green));
+							}
+
+							if (c.isBottom())
+							{
+								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(40, 40), GeometryFriends.XNAStub.Color.Yellow));
+							}
+
+							if (c.isTop())
+							{
+								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(40, 40), GeometryFriends.XNAStub.Color.Red));
+							}
+
+						}
+					}
 
                     debugInfo = newDebugInfo.ToArray();
 

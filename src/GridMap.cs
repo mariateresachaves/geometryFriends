@@ -17,10 +17,10 @@ namespace GeometryFriendsAgents
                 {
                     gridMap[i, j] = new Cell(i, j);
 
-                    if (j == Utils.ROW_CELLS-1)
+					if (j == Utils.ROW_CELLS-1 && i >= 1 && i < Utils.COL_CELLS-1) //This is just a fix because the "real game" screen only starts at point (40,40) instead of (0,0)
                         gridMap[i, j].setBottom(true);
 
-                    else if (j == 0)
+					if (j == 0 && i >= 1 && i < Utils.COL_CELLS-1) //This is just a fix because the "real game" screen only starts at point (40,40) instead of (0,0)
                         gridMap[i, j].setTop(true);
                 }
             }
@@ -30,17 +30,17 @@ namespace GeometryFriendsAgents
         {
             foreach(ObstacleRepresentation obstacle in obstaclesInfo)
             {
-                float x1 = obstacle.X - obstacle.Width / 2;
-                float y1 = obstacle.Y - obstacle.Height / 2;
+				float x1 = obstacle.X - ((float)obstacle.Width / 2);
+				float y1 = obstacle.Y - ((float)obstacle.Height / 2);
 
-                float x2 = obstacle.X + obstacle.Width / 2;
-                float y2 = obstacle.Y - obstacle.Height / 2;
+				float x2 = obstacle.X + ((float)obstacle.Width / 2);
+				float y2 = obstacle.Y - ((float)obstacle.Height / 2);
 
-                float x3 = obstacle.X + obstacle.Width / 2;
-                float y3 = obstacle.Y + obstacle.Height / 2;
+				float x3 = obstacle.X + ((float)obstacle.Width / 2);
+				float y3 = obstacle.Y + ((float)obstacle.Height / 2);
 
-                float x4 = obstacle.X - obstacle.Width / 2;
-                float y4 = obstacle.Y + obstacle.Height / 2;
+				float x4 = obstacle.X - ((float)obstacle.Width / 2);
+				float y4 = obstacle.Y + ((float)obstacle.Height / 2);
 
                 splitObstacle(x1, y1, x2, y2, x3, y3, x4, y4);
             }
@@ -60,11 +60,17 @@ namespace GeometryFriendsAgents
             Debug.WriteLine("X4 - " + x4);
             Debug.WriteLine("Y4 - " + y4);
 
-            int pos_init_x = (int)Math.Floor(x1 / Utils.GRID_SIZE);
-            int pos_init_y = (int)Math.Floor(y1 / Utils.GRID_SIZE);
+			int pos_init_x = (int)Math.Floor(x1 / Utils.GRID_SIZE);
+			int pos_init_y = (int)Math.Floor(y1 / Utils.GRID_SIZE);
 
-            int n_cols = (int) Math.Floor(width / Utils.GRID_SIZE);
-            int n_rows = (int)Math.Floor(height / Utils.GRID_SIZE);
+            int n_cols = (int) Math.Ceiling(width / Utils.GRID_SIZE);
+            int n_rows = (int) Math.Ceiling(height / Utils.GRID_SIZE);
+
+			if (((pos_init_y + n_rows-1)*Utils.GRID_SIZE + Utils.GRID_SIZE) < (y1 + height))
+				n_rows++;
+
+			if (((pos_init_x + n_cols-1)*Utils.GRID_SIZE + Utils.GRID_SIZE) < (x1 + width))
+				n_cols++;
 
             for (int i = 0; i < n_cols; i++)
             {
@@ -78,12 +84,12 @@ namespace GeometryFriendsAgents
         /** REMOVE **/
         public float CelltoWidth(int i)
         {
-            float temp = (float)((i * 1200) / 40);
+            float temp = (float)((i * 1280) / 40);
             return temp;
         }
         public float CelltoHeight(int j)
         {
-            float temp = (float)((j * 720) / 40);
+            float temp = (float)((j * 800) / 40);
             return temp;
         }
 

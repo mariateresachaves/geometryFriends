@@ -143,12 +143,12 @@ namespace GeometryFriendsAgents
 
         public void setXCoord()
         {
-            this.coords[0] = (getX() * Utils.WIDTH) / Utils.GRID_SIZE;
+			this.coords[0] = getX() * Utils.GRID_SIZE;
         }
 
         public void setYCoord()
         {
-            this.coords[1] = (getY() * Utils.HEIGHT) / Utils.GRID_SIZE;
+            this.coords[1] = getY() * Utils.GRID_SIZE;
         }
 
         public void setCoords()
