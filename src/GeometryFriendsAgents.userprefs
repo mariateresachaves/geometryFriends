@@ -1,9 +1,12 @@
-﻿<Properties StartupConfiguration="{9C110A16-975B-40E7-BB9A-FAF70F9B5114}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Graph.cs">
+﻿<Properties StartupConfiguration="{060A8290-17DC-41AF-86C4-F7406C003978}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GridMap.cs">
     <Files>
-      <File FileName="AStar.cs" Line="26" Column="23" />
-      <File FileName="MyNode.cs" Line="16" Column="33" />
-      <File FileName="Graph.cs" Line="27" Column="28" />
+      <File FileName="MyNode.cs" Line="15" Column="18" />
+      <File FileName="MyEdge.cs" Line="1" Column="1" />
+      <File FileName="Graph.cs" Line="1" Column="1" />
+      <File FileName="YHeuristicAStar.cs" Line="18" Column="24" />
+      <File FileName="Node.cs" Line="17" Column="38" />
+      <File FileName="GridMap.cs" Line="45" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

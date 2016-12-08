@@ -27,9 +27,13 @@ namespace GeometryFriendsAgents
 
 		private MyNode start, goal;
 
+		private int completeDistance;
+
 		public AStar(GridMap _gridMap, Graph _graph, MyNode _start, MyNode _goal)
 		{
-			
+
+			completeDistance = int.MaxValue;
+
 			this.gridMap = _gridMap;
 			this.graph = _graph;
 			this.start = _start;
@@ -139,7 +143,10 @@ namespace GeometryFriendsAgents
 				current = lowestFScore(openList);
 
 				if (current == goal)
+				{
+					completeDistance = fScore[current]; //this is just useful for Y-Heuristic A*
 					return reconstructRoute(current);
+				}
 
 				openList.Remove(current);
 				closedList.Add(current);
@@ -181,6 +188,13 @@ namespace GeometryFriendsAgents
 			}
 
 			return route;
+		}
+
+		public int getCompleteDistance()
+		{
+			
+			return completeDistance;
+
 		}
 	}
 }

@@ -10,6 +10,8 @@ namespace GeometryFriendsAgents
 		private ArrayList edges;
 		private MyNode parent;
 
+		private Boolean diamond = false;
+
 		public MyNode()
 		{
 
@@ -58,6 +60,13 @@ namespace GeometryFriendsAgents
 		{
 			
 			this.edges.Add(new MyEdge(this, dst));
+
+		}
+
+		public Boolean isDiamond()
+		{
+			
+			return diamond;
 
 		}
 	}
