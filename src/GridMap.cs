@@ -63,16 +63,16 @@ namespace GeometryFriendsAgents
         }
 
         /// <summary>
-        /// Function set a gridMap point as a obstacle.
+        /// Function to set a gridMap cell as an obstacle.
         /// </summary>
-        /// <param name="x1"> x coordinate of the lower left corner of the obstacle. </param>
-        /// <param name="y1"> y coordinate of the lower left corner of the obstacle. </param>
-        /// <param name="x2"> x coordinate of the lower right corner of the obstacle. </param>
-        /// <param name="y2"> y coordinate of the lower right corner of the obstacle. </param>
-        /// <param name="x3"> x coordinate of the upper right corner of the obstacle. </param>
-        /// <param name="y3"> y coordinate of the upper right corner of the obstacle. </param>
-        /// <param name="x4"> x coordinate of the upper left corner of the obstacle. </param>
-        /// <param name="y4"> y coordinate of the upper left corner of the obstacle. </param>
+        /// <param name="x1"> x coordinate of the upper left corner of the obstacle. </param>
+        /// <param name="y1"> y coordinate of the upper left corner of the obstacle. </param>
+        /// <param name="x2"> x coordinate of the upper right corner of the obstacle. </param>
+        /// <param name="y2"> y coordinate of the upper right corner of the obstacle. </param>
+        /// <param name="x3"> x coordinate of the lower right corner of the obstacle. </param>
+        /// <param name="y3"> y coordinate of the lower right corner of the obstacle. </param>
+        /// <param name="x4"> x coordinate of the lower left corner of the obstacle. </param>
+        /// <param name="y4"> y coordinate of the lower left corner of the obstacle. </param>
         public void splitObstacle(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
         {
             float width = x2 - x1;
@@ -92,20 +92,6 @@ namespace GeometryFriendsAgents
                 }
             }
         }
-
-        /** REMOVE **/
-        public float CelltoWidth(int i)
-        {
-            float temp = (float)((i * Utils.WIDTH) / Utils.GRID_SIZE);
-            return temp;
-        }
-        public float CelltoHeight(int j)
-        {
-            float temp = (float)((j * Utils.HEIGHT) / Utils.GRID_SIZE);
-            return temp;
-        }
-
-        /** REMOVE **/
 
         /// <summary>
         /// Function to get the grid of the map.
@@ -186,7 +172,7 @@ namespace GeometryFriendsAgents
         }
 
         /// <summary>
-        /// Function to get a cell of the map given the cell's identication.
+        /// Function to get a cell of the map given the cell's identification number.
         /// </summary>
         /// <returns> Returns the cell in success and null otherwise. </returns>
         public Cell getCellByID(int id)
