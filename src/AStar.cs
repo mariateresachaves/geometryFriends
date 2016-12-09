@@ -4,9 +4,11 @@ using System.Collections.Generic;
 
 namespace GeometryFriendsAgents
 {
+    /// <summary>
+    /// Implementation relative to the A* Algorithm.
+    /// </summary>
 	class AStar
 	{
-
 		private ArrayList openList;
 		private ArrayList closedList;
 
@@ -29,9 +31,15 @@ namespace GeometryFriendsAgents
 
 		private int completeDistance;
 
+        /// <summary>
+        /// AStar class constructor.
+        /// </summary>
+        /// <param name="_gridMap"> grid of the map. </param>
+        /// <param name="_graph"> graph of the map. </param>
+        /// <param name="_start"> starting node. </param>
+        /// <param name="_goal"> goal node. </param>
 		public AStar(GridMap _gridMap, Graph _graph, MyNode _start, MyNode _goal)
 		{
-
 			completeDistance = int.MaxValue;
 
 			this.gridMap = _gridMap;
@@ -43,35 +51,39 @@ namespace GeometryFriendsAgents
 			closedList = new ArrayList();
 
 			cameFrom = new Dictionary<MyNode, MyNode>();
-
 		}
 
+        /// <summary>
+        /// Function to get the children of a given node.
+        /// </summary>
+        /// <returns> Returns the children of a given node. </returns>
 		public ArrayList getChildren(MyNode _node)
-		{
-			
+		{	
 			return _node.getChildren();
-
 		}
 
+        /// <summary>
+        /// Function to calculate the heuristic value from a node to another.
+        /// </summary>
+        /// <returns> Returns the heuristic value from a node to another. </returns>
 		public int heuristicValue(MyNode src, MyNode dst)
 		{
-
-			//Should we use the Manhattan distance? Or the Euclidean?
-
 			Cell cSrc = gridMap.getCellByID(src.getCellID());
 			Cell cDst = gridMap.getCellByID(dst.getCellID());
 
 			float xDiff = cSrc.getXCoord() - cDst.getXCoord();
 			float yDiff = cSrc.getYCoord() - cDst.getYCoord();
 
-			//For now it's the Manhattan distance
+			//Manhattan distance
 			return Math.Abs((int)xDiff) + Math.Abs((int)yDiff);
-				
 		}
 
+        /// <summary>
+        /// Function to get the node with the lowerest F score value.
+        /// </summary>
+        /// <returns> Returns the node with the lowerest F score value. </returns>
 		public MyNode lowestFScore(ArrayList nodes)
 		{
-
 			int cellValue;
 			int minimum = -Utils.INFINITY;
 
@@ -79,7 +91,6 @@ namespace GeometryFriendsAgents
 
 			foreach (MyNode node in nodes)
 			{
-
 				cellValue = gridMap.getCellByID(node.getCellID()).getHeuristic();
 
 				if (cellValue < minimum)
@@ -87,21 +98,22 @@ namespace GeometryFriendsAgents
 					lowestNode = node;
 					minimum = cellValue;
 				}
-
 			}
 
 			return lowestNode;
-
 		}
 
-		/* 
+        /* 
 			Set both fScores and gScores to INFINITY
 			Check A* algorithm on Wikipedia for more info: https://en.wikipedia.org/wiki/A*_search_algorithm
 		*/
 
-		public void initialize() 
+        /// <summary>
+        /// Function to set start and goal node.
+        /// Start node with f and g score is added to the open list.
+        /// </summary>
+        public void initialize() 
 		{
-
 			ArrayList nodes = graph.getNodes();
 
 			foreach (MyNode node in nodes)
@@ -119,18 +131,24 @@ namespace GeometryFriendsAgents
 			}
 		}
 
-		/*
-			Check Fischer thesis, chapter 4 (Search), algorithm 4: A* part of selecting the node with the lowest f score and calculating new f scores to determine the route
+        /*
+			Check Fischer thesis, chapter 4 (Search), algorithm 4:
+            A* part of selecting the node with the lowest f score and calculating new f scores
+            to determine the route.
 			The algorithm is the same in Wikipedia: https://en.wikipedia.org/wiki/A*_search_algorithm
 		*/
 
-		public ArrayList search() 
-		{
+        // TODO: Vou aqui na documentação
 
+        /// <summary>
+        /// Function to ...
+        /// </summary>
+        /// <returns> Returns the ... </returns>
+        public ArrayList search() 
+		{
 			MyNode current;
 			int tentativeGScore = 0;
-
-			//NOTE: start and goal node is set and start node with f and g score is added to open list
+            
 			initialize();
 
 			openList.Add(this.start); //start node with f and g score is added to open list
@@ -139,7 +157,6 @@ namespace GeometryFriendsAgents
 
 			while (openList.Count > 0) //while openList is not empty
 			{
-
 				current = lowestFScore(openList);
 
 				if (current == goal)
@@ -155,7 +172,6 @@ namespace GeometryFriendsAgents
 
 				foreach(MyNode child in children) 
 				{
-
 					if (closedList.Contains(child)) //Ignore the neighbor which is already evaluated.
 						continue;
 
@@ -192,9 +208,7 @@ namespace GeometryFriendsAgents
 
 		public int getCompleteDistance()
 		{
-			
 			return completeDistance;
-
 		}
 	}
 }
