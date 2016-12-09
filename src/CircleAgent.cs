@@ -302,17 +302,17 @@ namespace GeometryFriendsAgents
 
 							if (c.isPlatform())
 							{
-								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(40,40), GeometryFriends.XNAStub.Color.Green));
+								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Green));
 							}
 
 							if (c.isBottom())
 							{
-								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(40, 40), GeometryFriends.XNAStub.Color.Yellow));
+								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Yellow));
 							}
 
 							if (c.isTop())
 							{
-								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(40, 40), GeometryFriends.XNAStub.Color.Red));
+								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Red));
 							}
 
 						}

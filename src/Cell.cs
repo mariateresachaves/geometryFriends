@@ -230,7 +230,7 @@ namespace GeometryFriendsAgents
         /// </summary>
         public void setXCoord()
         {
-			this.coords[0] = getX() * Utils.GRID_SIZE;
+			this.coords[0] = getX() * Utils.GRID_SIZE + Utils.TRANSLATION_X;
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace GeometryFriendsAgents
         /// </summary>
         public void setYCoord()
         {
-            this.coords[1] = getY() * Utils.GRID_SIZE;
+            this.coords[1] = getY() * Utils.GRID_SIZE + Utils.TRANSLATION_Y;
         }
 
         /// <summary>
