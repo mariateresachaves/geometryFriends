@@ -5,10 +5,16 @@ using System.Diagnostics;
 
 namespace GeometryFriendsAgents
 {
+    /// <summary>
+    /// GridMap contains information about the map's grid.
+    /// </summary>
     class GridMap
     {
         private Cell[,] gridMap = new Cell[Utils.COL_CELLS, Utils.ROW_CELLS];
-        
+
+        /// <summary>
+        /// GridMap class constructor.
+        /// </summary>
         public GridMap()
         {
             for(int i = 0; i < Utils.COL_CELLS; i++)
@@ -26,6 +32,10 @@ namespace GeometryFriendsAgents
             }
         }
 
+        /// <summary>
+        /// Function to set all obstacles in the gridMap.
+        /// </summary>
+        /// <param name="obstaclesInfo"> set of obstacles on the map. </param>
         public void setCellObstacle(ObstacleRepresentation[] obstaclesInfo)
         {
             foreach(ObstacleRepresentation obstacle in obstaclesInfo)
@@ -46,20 +56,22 @@ namespace GeometryFriendsAgents
             }
         }
 
+        /// <summary>
+        /// Function set a gridMap point as a obstacle.
+        /// </summary>
+        /// <param name="x1"> x coordinate of the lower left corner of the obstacle. </param>
+        /// <param name="y1"> y coordinate of the lower left corner of the obstacle. </param>
+        /// <param name="x2"> x coordinate of the lower right corner of the obstacle. </param>
+        /// <param name="y2"> y coordinate of the lower right corner of the obstacle. </param>
+        /// <param name="x3"> x coordinate of the upper right corner of the obstacle. </param>
+        /// <param name="y3"> y coordinate of the upper right corner of the obstacle. </param>
+        /// <param name="x4"> x coordinate of the upper left corner of the obstacle. </param>
+        /// <param name="y4"> y coordinate of the upper left corner of the obstacle. </param>
         public void splitObstacle(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
         {
             float width = x2 - x1;
             float height = y3 - y2;
-
-            Debug.WriteLine("X1 - " + x1);
-            Debug.WriteLine("Y1 - " + y1);
-            Debug.WriteLine("X2 - " + x2);
-            Debug.WriteLine("Y2 - " + y2);
-            Debug.WriteLine("X3 - " + x3);
-            Debug.WriteLine("Y3 - " + y3);
-            Debug.WriteLine("X4 - " + x4);
-            Debug.WriteLine("Y4 - " + y4);
-
+            
 			int pos_init_x = (int)Math.Floor(x1 / Utils.GRID_SIZE);
 			int pos_init_y = (int)Math.Floor(y1 / Utils.GRID_SIZE);
 
@@ -95,11 +107,22 @@ namespace GeometryFriendsAgents
 
         /** REMOVE **/
 
+        /// <summary>
+        /// Function to get the grid of the map.
+        /// </summary>
+        /// <returns> Returns the grid of the map. </returns>
         public Cell[,] getGridMap()
         {
             return this.gridMap;
         }
 
+        /// <summary>
+        /// Function to get the neighbors of a given cell.
+        /// </summary>
+        /// <param name="cell"> cell of the map. </param>
+        /// <param name="neighbors"> queue where the cell's neighbors are going to be stored. </param>
+        /// <param name="heuristic_value"> heuristic value of the cell. </param>
+        /// <returns> Returns a queue with the cell's neighbors. </returns>
         public Queue<int> getNeighbors(Cell cell, Queue<int> neighbors, int heuristic_value)
         {
             int[] goalUpper = cell.upperCell();
@@ -162,6 +185,10 @@ namespace GeometryFriendsAgents
             return neighbors;
         }
 
+        /// <summary>
+        /// Function to get a cell of the map given the cell's identication.
+        /// </summary>
+        /// <returns> Returns the cell in success and null otherwise. </returns>
         public Cell getCellByID(int id)
         {
             foreach(Cell cell in gridMap)
@@ -173,6 +200,10 @@ namespace GeometryFriendsAgents
             return null;
         }
 
+        /// <summary>
+        /// Function to calculate the heuristic values on the grid given a certain goal.
+        /// </summary>
+        /// <param name="goal"> goal cell. </param>
         public void calcHeuristicValues(Cell goal)
         {
             // Queue initialization

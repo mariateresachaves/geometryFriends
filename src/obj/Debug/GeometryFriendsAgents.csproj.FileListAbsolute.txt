@@ -8,3 +8,8 @@ C:\Users\up201306842\Desktop\geometryFriends-master\src\GeometryFriendsGame\Rele
 C:\Users\up201306842\Desktop\geometryFriends-master\src\GeometryFriendsGame\Release\Agents\MyAgents.pdb
 C:\Users\up201306842\Desktop\geometryFriends-master\src\obj\Debug\MyAgents.dll
 C:\Users\up201306842\Desktop\geometryFriends-master\src\obj\Debug\MyAgents.pdb
+C:\Users\up201306842\Desktop\aiad\geometryFriends\src\GeometryFriendsGame\Release\Agents\MyAgents.dll
+C:\Users\up201306842\Desktop\aiad\geometryFriends\src\GeometryFriendsGame\Release\Agents\MyAgents.pdb
+C:\Users\up201306842\Desktop\aiad\geometryFriends\src\obj\Debug\GeometryFriendsAgents.csprojResolveAssemblyReference.cache
+C:\Users\up201306842\Desktop\aiad\geometryFriends\src\obj\Debug\MyAgents.dll
+C:\Users\up201306842\Desktop\aiad\geometryFriends\src\obj\Debug\MyAgents.pdb
