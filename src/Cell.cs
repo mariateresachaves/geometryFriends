@@ -130,7 +130,7 @@ namespace GeometryFriendsAgents
         }
 
         /// <summary>
-        /// Function to know if the cell has already been visited.
+        /// Function to know if the cell has already been visited (used for the algorithm).
         /// </summary>
         /// <returns> Returns true if the cell has already been visited and false otherwise. </returns>
         public Boolean isVisited()
@@ -296,7 +296,7 @@ namespace GeometryFriendsAgents
         }
 
         /// <summary>
-        /// Function to change the cell's heuristic value.
+        /// Function to set the cell's heuristic value.
         /// </summary>
         /// <param name="_heuristic_value"> cell's new heurist value. </param>
         public void setHeuristic(int _heuristic_value)
@@ -304,14 +304,16 @@ namespace GeometryFriendsAgents
             this.heuristic_value = _heuristic_value;
         }
 
+        // function to set the upper neighbor cell position
+
         /*********************/
         /*      METHODS      */
         /*********************/
 
         /// <summary>
-        /// Function to calculate the cell's neighbor upper cell position.
+        /// Function to calculate the cell's upper neighbor position.
         /// </summary>
-        /// <returns> Returns the cell's neighbor upper cell position. </returns>
+        /// <returns> Returns the cell's upper neighbor position. </returns>
         public int[] upperCell()
         {
             if (this.isTop())
@@ -326,9 +328,9 @@ namespace GeometryFriendsAgents
         }
 
         /// <summary>
-        /// Function to calculate the cell's neighbor lower cell position.
+        /// Function to calculate the cell's lower neighbor position.
         /// </summary>
-        /// <returns> Returns the cell's neighbor lower cell position. </returns>
+        /// <returns> Returns the cell's lower neighbor position. </returns>
         public int[] lowerCell()
         {
             if (this.isBottom())
@@ -343,9 +345,9 @@ namespace GeometryFriendsAgents
         }
 
         /// <summary>
-        /// Function to calculate the cell's neighbor left cell position.
+        /// Function to calculate the cell's left neighbor position.
         /// </summary>
-        /// <returns> Returns the cell's neighbor left cell position. </returns>
+        /// <returns> Returns the cell's left neighbor left position. </returns>
         public int[] leftCell()
         {
             int x = this.getX();
@@ -362,9 +364,9 @@ namespace GeometryFriendsAgents
         }
 
         /// <summary>
-        /// Function to calculate the cell's neighbor right cell position.
+        /// Function to calculate the cell's right neighbor position.
         /// </summary>
-        /// <returns> Returns the cell's neighbor right cell position. </returns>
+        /// <returns> Returns the cell's right neighbor right position. </returns>
         public int[] rightCell()
         {
             int x = this.getX();
