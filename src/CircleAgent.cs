@@ -123,6 +123,44 @@ namespace GeometryFriendsAgents
             this.grid.calcHeuristicValues(collectiblesInfo[0].X, collectiblesInfo[0].Y);
         }
 
+        public void addNodeFallDown(Cell toFall, string type)
+        {
+            Cell tmp = null;
+            Cell curr = toFall;
+            bool findCell = true;
+            int[] pos;
+            int id;
+
+            MyNode.nodeType type_enum = (MyNode.nodeType)Enum.Parse(typeof(MyNode.nodeType), type);
+
+            while(findCell)
+            {
+                pos = curr.lowerCell();
+                tmp = this.grid.getGridMap()[pos[0], pos[1]];
+
+                //Floor
+                if (tmp.isBottom())
+                {
+                    findCell = false;
+
+                    id = curr.getID();
+                    this.graph.addNode(new MyNode(id, type_enum));
+                }
+
+                else
+                {
+                    if (tmp.isPlatform())
+                    {
+                        findCell = false;
+                        id = curr.getID();
+                        this.graph.addNode(new MyNode(id, type_enum));
+                    }
+                }
+
+                curr = tmp;
+            }
+        }
+
         public void graphNodeObstacles(ObstacleRepresentation obstacle)
         {
             int id;
@@ -192,21 +230,23 @@ namespace GeometryFriendsAgents
             //Add first node
 
             //Platform with wall on the left side
-            if (c1_upper != null && c1_upper_left == null && !c1_upper.isPlatform())
+            if (c1_upper != null && c1_upper_left == null && !c1_upper.isPlatform() && !c1_upper.isTop())
             {
                 id = c1_upper.getID();
                 this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
             }
 
             //Platform with falldown on the left side
-            if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && !c1_upper_left.isPlatform())
+            if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && !c1_upper_left.isPlatform() && !c1_upper.isTop())
             {
                 id = c1_upper_left.getID();
                 this.graph.addNode(new MyNode(id, MyNode.nodeType.ToFall));
+
+                this.addNodeFallDown(c1_upper_left, MyNode.nodeType.FallDownPoint.ToString());
             }
 
             //Platform in the middle or with wall on the right side
-            if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && c1_upper_left.isPlatform())
+            if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && c1_upper_left.isPlatform() && !c1_upper.isTop())
             {
                 id = c1_upper.getID();
                 this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
@@ -248,14 +288,16 @@ namespace GeometryFriendsAgents
             //Add second node
 
             //Falldown right
-            if (c2_upper != null && c2_upper_left != null && !c2_upper.isPlatform() && !c2_upper_left.isPlatform())
+            if (c2_upper != null && c2_upper_left != null && !c2_upper.isPlatform() && !c2_upper_left.isPlatform() && !c2_upper.isTop())
             {
                 id = c2_upper.getID();
                 this.graph.addNode(new MyNode(id, MyNode.nodeType.ToFall));
+
+                this.addNodeFallDown(c2_upper, MyNode.nodeType.FallDownPoint.ToString());
             }
 
             //Has right platform
-            if (c2_upper != null && c2_upper_left != null && c2_upper.isPlatform() && !c2_upper_left.isPlatform())
+            if (c2_upper != null && c2_upper_left != null && c2_upper.isPlatform() && !c2_upper_left.isPlatform() && !c2_upper.isTop())
             {
                 id = c2_upper_left.getID();
                 this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
@@ -314,6 +356,8 @@ namespace GeometryFriendsAgents
                 Cell c = this.grid.getCellByCoords(diamond.X, diamond.Y);
                 id = c.getID();
                 this.graph.addNode(new MyNode(id, MyNode.nodeType.Goal));
+
+                this.addNodeFallDown(c, MyNode.nodeType.ToDiamond.ToString());
             }
 
             id = grid.getCellByCoords(circleInfo.X, circleInfo.Y).getID();
@@ -528,17 +572,17 @@ namespace GeometryFriendsAgents
                         GeometryFriends.XNAStub.Color color = GeometryFriends.XNAStub.Color.Red;
 
                         if (node.getType() == MyNode.nodeType.Platform)
-                            color = GeometryFriends.XNAStub.Color.HotPink;
+                            color = GeometryFriends.XNAStub.Color.Green;
                         else if (node.getType() == MyNode.nodeType.Goal)
-                            color = GeometryFriends.XNAStub.Color.Red;
-                        else if (node.getType() == MyNode.nodeType.Start)
-                            color = GeometryFriends.XNAStub.Color.Khaki;
-                        else if (node.getType() == MyNode.nodeType.ToFall)
-                            color = GeometryFriends.XNAStub.Color.LightBlue;
-                        else if(node.getType() == MyNode.nodeType.FallDownPoint)
-                            color = GeometryFriends.XNAStub.Color.Chocolate;
-                        else if (node.getType() == MyNode.nodeType.ToDiamond)
                             color = GeometryFriends.XNAStub.Color.Purple;
+                        else if (node.getType() == MyNode.nodeType.Start)
+                            color = GeometryFriends.XNAStub.Color.HotPink;
+                        else if (node.getType() == MyNode.nodeType.ToFall)
+                            color = GeometryFriends.XNAStub.Color.Blue;
+                        else if(node.getType() == MyNode.nodeType.FallDownPoint)
+                            color = GeometryFriends.XNAStub.Color.MediumTurquoise;
+                        else if (node.getType() == MyNode.nodeType.ToDiamond)
+                            color = GeometryFriends.XNAStub.Color.MediumPurple;
 
                         newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(coord_x, coord_y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), color));
                     }
