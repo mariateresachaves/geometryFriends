@@ -209,6 +209,11 @@ namespace GeometryFriendsAgents
             float pos_x = (float) Math.Floor((coords_x - Utils.TRANSLATION_X) / Utils.GRID_SIZE);
             float pos_y = (float)Math.Floor((coords_y - Utils.TRANSLATION_Y) / Utils.GRID_SIZE);
 
+            if(pos_x == 75)
+            {
+                pos_x--;
+            }
+
             foreach (Cell c in gridMap)
             {
                 if (c.getX() == pos_x && c.getY() == pos_y)

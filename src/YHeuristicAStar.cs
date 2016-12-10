@@ -34,8 +34,8 @@ namespace GeometryFriendsAgents
 			{
 				MyNode node = (MyNode)nodes[n];
 
-				if (node.isDiamond())
-					diamonds.Add(node);
+				// if (node.isDiamond())
+					// diamonds.Add(node);
 			}
 
 			while (diamonds.Count > 0)

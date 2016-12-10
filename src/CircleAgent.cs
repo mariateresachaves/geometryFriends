@@ -57,6 +57,10 @@ namespace GeometryFriendsAgents
         //Grid info
         private GridMap grid;
 
+        //Graph info
+
+        private Graph graph;
+
         public CircleAgent()
         {
             //Change flag if agent is not to be used
@@ -81,7 +85,6 @@ namespace GeometryFriendsAgents
             //messages exchange
             messages = new List<AgentMessage>();
 
-
             Console.WriteLine("Circle Agent - " + numbersInfo.ToString());
         }
 
@@ -103,6 +106,9 @@ namespace GeometryFriendsAgents
             grid = new GridMap();
             SetupGrid();
 
+            graph = new Graph();
+            SetupGraph();
+
             //send a message to the rectangle informing that the circle setup is complete and show how to pass an attachment: a pen object
             messages.Add(new AgentMessage("Setup complete, testing to send an object as an attachment.", new Pen(Color.AliceBlue)));
 
@@ -115,6 +121,201 @@ namespace GeometryFriendsAgents
             this.grid.setCellObstacle(obstaclesInfo);
             //NOTE: Implement setCellObstacle before calcHeuristicValues
             this.grid.calcHeuristicValues(collectiblesInfo[0].X, collectiblesInfo[0].Y);
+        }
+
+        public void graphNodeObstacles(ObstacleRepresentation obstacle)
+        {
+            int id;
+
+            float obs_x = obstacle.X;
+            float obs_y = obstacle.Y;
+
+            float x1 = obs_x - ((float)obstacle.Width / 2);
+            float y1 = obs_y - ((float)obstacle.Height / 2);
+
+            float x2 = obs_x + ((float)obstacle.Width / 2);
+            float y2 = obs_y - ((float)obstacle.Height / 2);
+
+            int[] pos;
+
+            Cell c1 = this.grid.getCellByCoords(x1, y1);
+
+            pos = c1.upperCell();
+            Cell c1_upper = null;
+
+            if (pos != null)
+                c1_upper = this.grid.getGridMap()[pos[0], pos[1]];
+
+            pos = c1_upper.leftCell();
+            Cell c1_upper_left = null;
+
+            if (pos != null)
+                c1_upper_left = this.grid.getGridMap()[pos[0], pos[1]];
+
+            pos = c1_upper.rightCell();
+            Cell c1_upper_right = null;
+
+            if (pos != null)
+                c1_upper_right = this.grid.getGridMap()[pos[0], pos[1]];
+
+            //Second node of platform
+            Cell c2 = this.grid.getCellByCoords(x2, y2);
+
+            pos = c2.leftCell();
+            Cell c2_left = null;
+
+            if (pos != null)
+                c2_left = this.grid.getGridMap()[pos[0], pos[1]];
+
+            pos = c2.upperCell();
+            Cell c2_upper = null;
+
+            if (pos != null)
+                c2_upper = this.grid.getGridMap()[pos[0], pos[1]];
+
+            pos = c2_upper.leftCell();
+            Cell c2_upper_left = null;
+
+            if (pos != null)
+                c2_upper_left = this.grid.getGridMap()[pos[0], pos[1]];
+
+            pos = c2_upper.rightCell();
+            Cell c2_upper_right = null;
+
+            if (pos != null)
+                c2_upper_right = this.grid.getGridMap()[pos[0], pos[1]];
+
+            //Add first node
+            //Platform leaning to the left side
+
+            if (c1_upper != null && c1_upper_left == null && !c1_upper.isPlatform())
+            {
+                id = c1_upper.getID();
+                this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
+            }
+
+            if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && !c1_upper_left.isPlatform())
+            {
+                id = c1_upper_left.getID();
+                this.graph.addNode(new MyNode(id, MyNode.nodeType.ToFall));
+            }
+
+            //Platform in the middle or leaning to the right
+            if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && c1_upper_left.isPlatform())
+            {
+                id = c1_upper.getID();
+                this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
+            }
+
+            //Case where c1 has a platform on top
+            Cell c1_translate = null;
+            if (c1_upper != null && c1_upper.isPlatform())
+            {
+                Cell tmp = new Cell();
+                bool find_cell = true;
+                Cell current = c1_upper;
+                while (find_cell)
+                {
+                    pos = current.rightCell();
+                    if (pos != null)
+                    {
+                        tmp = this.grid.getGridMap()[pos[0], pos[1]];
+                    }
+
+                    if (!tmp.isPlatform())
+                    {
+                        c1_translate = tmp;
+                        find_cell = false;
+                    }
+
+                    //Check if end of platform
+                    if (tmp.getX() == c2.getX())
+                        find_cell = false;
+
+                    current = tmp;
+                }
+
+                if (c1_translate != null)
+                {
+                    id = c1_translate.getID();
+                    this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
+                }
+            }
+
+            //Add second node
+            //Falldown right
+            if (c2_upper != null && c2_upper_left != null && !c2_upper.isPlatform() && !c2_upper_left.isPlatform())
+            {
+                id = c2_upper.getID();
+                this.graph.addNode(new MyNode(id, MyNode.nodeType.ToFall));
+            }
+
+            //Has right wall
+            if (c2_upper != null && c2_upper_left != null && c2_upper.isPlatform() && !c2_upper_left.isPlatform())
+            {
+                id = c2_upper_left.getID();
+                this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
+            }
+
+            //Case where c2 has a platform on top
+            Cell c2_translate = null;
+            if (c2_upper_left != null && c2_upper_left.isPlatform())
+            {
+                Cell tmp = new Cell();
+                bool find_cell = true;
+                Cell current = c2_upper_left;
+                while (find_cell)
+                {
+                    pos = current.leftCell();
+                    if (pos != null)
+                    {
+                        tmp = this.grid.getGridMap()[pos[0], pos[1]];
+                    }
+
+                    if (!tmp.isPlatform())
+                    {
+                        c2_translate = tmp;
+                        find_cell = false;
+                    }
+
+                    //Check if end of platform
+                    if (tmp.getX() == c1.getX())
+                        find_cell = false;
+
+                    current = tmp;
+                }
+
+                if (c2_translate != null)
+                {
+                    id = c2_translate.getID();
+                    this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
+                }
+            }
+        }
+
+        public void SetupGraph()
+        {
+
+            int id;
+
+            foreach (ObstacleRepresentation obstacle in obstaclesInfo)
+                this.graphNodeObstacles(obstacle);
+
+            foreach (ObstacleRepresentation obstacle in rectanglePlatformsInfo)
+                this.graphNodeObstacles(obstacle);
+
+
+            foreach (CollectibleRepresentation diamond in collectiblesInfo)
+            {
+                Cell c = this.grid.getCellByCoords(diamond.X, diamond.Y);
+                id = c.getID();
+                this.graph.addNode(new MyNode(id, MyNode.nodeType.Goal));
+            }
+
+            id = grid.getCellByCoords(circleInfo.X, circleInfo.Y).getID();
+
+            this.graph.addNode(new MyNode(id, MyNode.nodeType.Start));
+
         }
 
         //implements abstract circle interface: registers updates from the agent's sensors that it is up to date with the latest environment information
@@ -260,77 +461,84 @@ namespace GeometryFriendsAgents
                     {
                         newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(item.X - debugCircleSize / 2, item.Y - debugCircleSize / 2), debugCircleSize, GeometryFriends.XNAStub.Color.GreenYellow));
                     }
-					//set all the debug information to be read by the agents manager
+                    //set all the debug information to be read by the agents manager
 
 
-					//CANCER
-					//create grid debug information 
+                    //CANCER
+                    //create grid debug information 
 
-                    /*foreach (Cell c in grid.getGridMap())
+                    Cell[,] gridMap = grid.getGridMap();
+
+                    for (int i = 0; i < Utils.COL_CELLS; i++)
                     {
-                        if (c.isPlatform())
+                        Console.WriteLine("[");
+                        for (int j = 0; j < Utils.ROW_CELLS; j++)
                         {
-							newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(c.getXCoord()+16, c.getYCoord()+10), 10, GeometryFriends.XNAStub.Color.Green));
+                            Console.WriteLine(gridMap[i, j] + ", ");
                         }
+                        Console.WriteLine("]\n");
+                    }
 
-                        if (c.isBottom())
+                    for (int i = 0; i < Utils.COL_CELLS; i++)
+                    {
+                        for (int j = 0; j < Utils.ROW_CELLS; j++)
                         {
-                            newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(c.getXCoord()+16, c.getYCoord()+10), 10, GeometryFriends.XNAStub.Color.Yellow));
+                            Cell c = gridMap[i, j];
+
+                            if (c.isPlatform())
+                            {
+                                newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Green));
+                            }
+
+                            if (c.isBottom())
+                            {
+                                newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Yellow));
+                            }
+
+                            if (c.isTop())
+                            {
+                                newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Red));
+                            }
                         }
-
-						if (c.isTop()) {
-							newDebugInfo.Add(DebugInformationFactory.CreateCircleDebugInfo(new PointF(c.getXCoord()+16, c.getYCoord()+10), 10, GeometryFriends.XNAStub.Color.Red));
-						}
-                    }*/
-
-					Cell[,] gridMap = grid.getGridMap();
-
-					for (int i = 0; i < Utils.COL_CELLS; i++)
-					{
-						Console.WriteLine("[");
-						for (int j = 0; j < Utils.ROW_CELLS; j++)
-						{
-							Console.WriteLine(gridMap[i, j] + ", ");
-						}
-						Console.WriteLine("]\n");
-					}
-
-					for (int i = 0; i < Utils.COL_CELLS; i++)
-					{
-						for (int j = 0; j < Utils.ROW_CELLS; j++)
-						{
-							Cell c = gridMap[i, j];
-
-							if (c.isPlatform())
-							{
-								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Green));
-							}
-
-							if (c.isBottom())
-							{
-								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Yellow));
-							}
-
-							if (c.isTop())
-							{
-								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Red));
-							}
-						}
-					}
+                    }
 
                     int n = 1;
 
-                    foreach(CollectibleRepresentation goal in this.collectiblesInfo)
+                    foreach (CollectibleRepresentation goal in this.collectiblesInfo)
                     {
                         newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X, goal.Y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
-                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X-Utils.GRID_SIZE, goal.Y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
-                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X, goal.Y-Utils.GRID_SIZE), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
-                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X-Utils.GRID_SIZE, goal.Y-Utils.GRID_SIZE), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
+                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X - Utils.GRID_SIZE, goal.Y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
+                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X, goal.Y - Utils.GRID_SIZE), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
+                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X - Utils.GRID_SIZE, goal.Y - Utils.GRID_SIZE), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
                         newDebugInfo.Add(DebugInformationFactory.CreateTextDebugInfo(new PointF(goal.X, goal.Y), n.ToString(), GeometryFriends.XNAStub.Color.White));
 
                         n++;
                     }
-                    
+
+                    // Print Graph nodes
+
+                    foreach (MyNode node in graph.getNodes())
+                    {
+                        float coord_x = grid.getCellByID(node.getCellID()).getXCoord();
+                        float coord_y = grid.getCellByID(node.getCellID()).getYCoord();
+                        GeometryFriends.XNAStub.Color color = GeometryFriends.XNAStub.Color.Red;
+
+                        if (node.getType() == MyNode.nodeType.Platform)
+                            color = GeometryFriends.XNAStub.Color.HotPink;
+                        else if (node.getType() == MyNode.nodeType.Goal)
+                            color = GeometryFriends.XNAStub.Color.Red;
+                        else if (node.getType() == MyNode.nodeType.Start)
+                            color = GeometryFriends.XNAStub.Color.Khaki;
+                        else if (node.getType() == MyNode.nodeType.ToFall)
+                            color = GeometryFriends.XNAStub.Color.LightBlue;
+                        else if(node.getType() == MyNode.nodeType.FallDownPoint)
+                            color = GeometryFriends.XNAStub.Color.Chocolate;
+                        else if (node.getType() == MyNode.nodeType.ToDiamond)
+                            color = GeometryFriends.XNAStub.Color.Purple;
+
+                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(coord_x, coord_y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), color));
+                    }
+
                     StreamWriter sw = new StreamWriter("lindodemorrer.csv");
 
                     for (int i = 0; i < Utils.ROW_CELLS; i++)
@@ -338,13 +546,13 @@ namespace GeometryFriendsAgents
                         for (int j = 0; j < Utils.COL_CELLS; j++)
                         {
                             //Console.Write(random.Next(1, 49));
-                            sw.Write(this.grid.getGridMap()[j,i].getHeuristic() + ";");
+                            sw.Write(this.grid.getGridMap()[j, i].getHeuristic() + ";");
                         }
                         sw.WriteLine();
                     }
 
                     sw.Close();
-                    
+
                     debugInfo = newDebugInfo.ToArray();
                 }
             }

@@ -108,13 +108,21 @@
       <Collectible X="616" Y="168" />
     </Collectibles>
     <GreenObstacles />
-    <BlackObstacles />
+    <BlackObstacles>
+      <Obstacle width="96" height="336" X="888" Y="424" centered="false" />
+      <Obstacle width="96" height="192" X="792" Y="568" centered="false" />
+      <Obstacle width="192" height="48" X="1064" Y="232" centered="false" />
+      <Obstacle width="176" height="64" X="24" Y="216" centered="false" />
+      <Obstacle width="16" height="80" X="536" Y="280" centered="false" />
+      <Obstacle width="224" height="96" X="408" Y="264" centered="false" />
+      <Obstacle width="64" height="112" X="568" Y="312" centered="false" />
+      <Obstacle width="48" height="128" X="408" Y="312" centered="false" />
+      <Obstacle width="352" height="80" X="232" Y="696" centered="false" />
+      <Obstacle width="144" height="64" X="360" Y="632" centered="false" />
+      <Obstacle width="352" height="80" X="808" Y="312" centered="false" />
+    </BlackObstacles>
     <YellowObstacles />
     <GreenElevators />
     <OrangeElevators />
-    <TimeLimit value="65" />
-    <HighScores>
-      <HighScore name="No Name" value="151" />
-    </HighScores>
   </Level5>
 </Levels>
