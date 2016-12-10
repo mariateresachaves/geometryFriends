@@ -127,17 +127,21 @@ namespace GeometryFriendsAgents
         {
             int id;
 
+            //Obstacle CENTER position
             float obs_x = obstacle.X;
             float obs_y = obstacle.Y;
 
+            //Obstacle P1 - upper left
             float x1 = obs_x - ((float)obstacle.Width / 2);
             float y1 = obs_y - ((float)obstacle.Height / 2);
 
+            //Obstacle P2 - upper right
             float x2 = obs_x + ((float)obstacle.Width / 2);
             float y2 = obs_y - ((float)obstacle.Height / 2);
 
             int[] pos;
 
+            //Cell of position P1
             Cell c1 = this.grid.getCellByCoords(x1, y1);
 
             pos = c1.upperCell();
@@ -158,7 +162,7 @@ namespace GeometryFriendsAgents
             if (pos != null)
                 c1_upper_right = this.grid.getGridMap()[pos[0], pos[1]];
 
-            //Second node of platform
+            //Cell of position P2
             Cell c2 = this.grid.getCellByCoords(x2, y2);
 
             pos = c2.leftCell();
@@ -186,21 +190,22 @@ namespace GeometryFriendsAgents
                 c2_upper_right = this.grid.getGridMap()[pos[0], pos[1]];
 
             //Add first node
-            //Platform leaning to the left side
 
+            //Platform with wall on the left side
             if (c1_upper != null && c1_upper_left == null && !c1_upper.isPlatform())
             {
                 id = c1_upper.getID();
                 this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
             }
 
+            //Platform with falldown on the left side
             if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && !c1_upper_left.isPlatform())
             {
                 id = c1_upper_left.getID();
                 this.graph.addNode(new MyNode(id, MyNode.nodeType.ToFall));
             }
 
-            //Platform in the middle or leaning to the right
+            //Platform in the middle or with wall on the right side
             if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && c1_upper_left.isPlatform())
             {
                 id = c1_upper.getID();
@@ -218,9 +223,7 @@ namespace GeometryFriendsAgents
                 {
                     pos = current.rightCell();
                     if (pos != null)
-                    {
                         tmp = this.grid.getGridMap()[pos[0], pos[1]];
-                    }
 
                     if (!tmp.isPlatform())
                     {
@@ -229,7 +232,7 @@ namespace GeometryFriendsAgents
                     }
 
                     //Check if end of platform
-                    if (tmp.getX() == c2.getX())
+                    else if (tmp.getX() >= c2_upper_left.getX())
                         find_cell = false;
 
                     current = tmp;
@@ -243,6 +246,7 @@ namespace GeometryFriendsAgents
             }
 
             //Add second node
+
             //Falldown right
             if (c2_upper != null && c2_upper_left != null && !c2_upper.isPlatform() && !c2_upper_left.isPlatform())
             {
@@ -250,7 +254,7 @@ namespace GeometryFriendsAgents
                 this.graph.addNode(new MyNode(id, MyNode.nodeType.ToFall));
             }
 
-            //Has right wall
+            //Has right platform
             if (c2_upper != null && c2_upper_left != null && c2_upper.isPlatform() && !c2_upper_left.isPlatform())
             {
                 id = c2_upper_left.getID();
@@ -268,9 +272,7 @@ namespace GeometryFriendsAgents
                 {
                     pos = current.leftCell();
                     if (pos != null)
-                    {
                         tmp = this.grid.getGridMap()[pos[0], pos[1]];
-                    }
 
                     if (!tmp.isPlatform())
                     {
@@ -279,11 +281,13 @@ namespace GeometryFriendsAgents
                     }
 
                     //Check if end of platform
-                    if (tmp.getX() == c1.getX())
+                    else if (tmp.getX() <= c1.getX())
                         find_cell = false;
 
                     current = tmp;
                 }
+
+                Cell a = c2_translate;
 
                 if (c2_translate != null)
                 {
