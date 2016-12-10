@@ -49,6 +49,7 @@
     <Compile Include="CircleAgent.cs" />
     <Compile Include="CoopCircle.cs" />
     <Compile Include="CoopRectangle.cs" />
+    <Compile Include="Edge.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="GridMap.cs" />
     <Compile Include="Node.cs" />

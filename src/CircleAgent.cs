@@ -8,6 +8,7 @@ using GeometryFriends.AI.Perceptions.Information;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace GeometryFriendsAgents
 {
@@ -110,10 +111,10 @@ namespace GeometryFriendsAgents
 
         public void SetupGrid()
         {
-            //this.grid.setCellObstacle(rectanglePlatformsInfo);
+            this.grid.setCellObstacle(rectanglePlatformsInfo);
             this.grid.setCellObstacle(obstaclesInfo);
-            int x = obstaclesInfo.Length;
 
+            this.grid.calcHeuristicValues(collectiblesInfo[0].X, collectiblesInfo[0].Y);
         }
 
         //implements abstract circle interface: registers updates from the agent's sensors that it is up to date with the latest environment information
@@ -314,13 +315,37 @@ namespace GeometryFriendsAgents
 							{
 								newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(c.getXCoord(), c.getYCoord()), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Red));
 							}
-
 						}
 					}
 
+                    int n = 1;
+
+                    foreach(CollectibleRepresentation goal in this.collectiblesInfo)
+                    {
+                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X, goal.Y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
+                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X-Utils.GRID_SIZE, goal.Y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
+                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X, goal.Y-Utils.GRID_SIZE), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
+                        newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(goal.X-Utils.GRID_SIZE, goal.Y-Utils.GRID_SIZE), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), GeometryFriends.XNAStub.Color.Blue));
+                        newDebugInfo.Add(DebugInformationFactory.CreateTextDebugInfo(new PointF(goal.X, goal.Y), n.ToString(), GeometryFriends.XNAStub.Color.White));
+
+                        n++;
+                    }
+                    
+                    StreamWriter sw = new StreamWriter("lindodemorrer.csv");
+
+                    for (int i = 0; i < Utils.ROW_CELLS; i++)
+                    {
+                        for (int j = 0; j < Utils.COL_CELLS; j++)
+                        {
+                            //Console.Write(random.Next(1, 49));
+                            sw.Write(this.grid.getGridMap()[j,i].getHeuristic() + ";");
+                        }
+                        sw.WriteLine();
+                    }
+
+                    sw.Close();
+                    
                     debugInfo = newDebugInfo.ToArray();
-
-
                 }
             }
         }
