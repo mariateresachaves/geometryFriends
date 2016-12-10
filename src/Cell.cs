@@ -32,7 +32,7 @@ namespace GeometryFriendsAgents
 
         private Boolean visited = false;
 
-        private int heuristic_value = 0;
+        private int heuristic_value = Utils.INFINITY;
 
         /*********************/
         /*      GETTERS      */
@@ -294,6 +294,8 @@ namespace GeometryFriendsAgents
         public void setPlatform(Boolean _platform)
         {
             this.platform = _platform;
+            if (_platform)
+                this.heuristic_value = -1;
         }
 
         /// <summary>
@@ -381,6 +383,14 @@ namespace GeometryFriendsAgents
             int[] pos = { x, y };
 
             return pos;
+        }
+
+        public bool notHeuristicCell()
+        {
+            if (this.isBottom() || this.isPlatform() || this.isTop())
+                return true;
+
+            return false;
         }
     }
 }

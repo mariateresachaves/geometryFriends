@@ -109,59 +109,77 @@ namespace GeometryFriendsAgents
         /// <param name="neighbors"> queue where the cell's neighbors are going to be stored. </param>
         /// <param name="heuristic_value"> heuristic value of the cell. </param>
         /// <returns> Returns a queue with the cell's neighbors. </returns>
-        public Queue<int> getNeighbors(Cell cell, Queue<int> neighbors, int heuristic_value)
+        public Queue<int> getNeighbors(Cell cell, Queue<int> neighbors)
         {
+            int heuristic_value = cell.getHeuristic() + 1;
+
             int[] goalUpper = cell.upperCell();
             int[] goalLower = cell.lowerCell();
             int[] goalLeft = cell.leftCell();
             int[] goalRight = cell.rightCell();
 
-            if (goalUpper != null)
+            if (goalUpper != null && !this.gridMap[goalUpper[0], goalUpper[1]].notHeuristicCell())      
             {
                 int id = this.gridMap[goalUpper[0], goalUpper[1]].getID();
 
-                if (this.gridMap[goalUpper[0], goalUpper[1]].isVisited() == false)
+                if(this.gridMap[goalUpper[0], goalUpper[1]].getHeuristic() > heuristic_value)
                 {
                     this.gridMap[goalUpper[0], goalUpper[1]].setHeuristic(heuristic_value);
+                }
+                
+                if (this.gridMap[goalUpper[0], goalUpper[1]].isVisited() == false)
+                {
                     this.gridMap[goalUpper[0], goalUpper[1]].setVisited(true);
 
                     neighbors.Enqueue(id);
                 }
             }
 
-            if (goalLower != null)
+            if (goalLower != null && !this.gridMap[goalLower[0], goalLower[1]].notHeuristicCell())
             {
                 int id = this.gridMap[goalLower[0], goalLower[1]].getID();
 
-                if (this.gridMap[goalLower[0], goalLower[1]].isVisited() == false)
+                if (this.gridMap[goalLower[0], goalLower[1]].getHeuristic() > heuristic_value)
                 {
                     this.gridMap[goalLower[0], goalLower[1]].setHeuristic(heuristic_value);
+                }
+
+                if (this.gridMap[goalLower[0], goalLower[1]].isVisited() == false)
+                {
                     this.gridMap[goalLower[0], goalLower[1]].setVisited(true);
 
                     neighbors.Enqueue(id);
                 }
             }
 
-            if (goalLeft != null)
+            if (goalLeft != null && !this.gridMap[goalLeft[0], goalLeft[1]].notHeuristicCell())
             {
                 int id = this.gridMap[goalLeft[0], goalLeft[1]].getID();
 
-                if (this.gridMap[goalLeft[0], goalLeft[1]].isVisited() == false)
+                if (this.gridMap[goalLeft[0], goalLeft[1]].getHeuristic() > heuristic_value)
                 {
                     this.gridMap[goalLeft[0], goalLeft[1]].setHeuristic(heuristic_value);
+                }
+
+                if (this.gridMap[goalLeft[0], goalLeft[1]].isVisited() == false)
+                {
                     this.gridMap[goalLeft[0], goalLeft[1]].setVisited(true);
 
                     neighbors.Enqueue(id);
                 }
             }
 
-            if (goalRight != null)
+            if (goalRight != null && !this.gridMap[goalRight[0], goalRight[1]].notHeuristicCell())
             {
                 int id = gridMap[goalRight[0], goalRight[1]].getID();
 
-                if (this.gridMap[goalRight[0], goalRight[1]].isVisited() == false)
+                if (this.gridMap[goalRight[0], goalRight[1]].getHeuristic() > heuristic_value)
                 {
                     this.gridMap[goalRight[0], goalRight[1]].setHeuristic(heuristic_value);
+                }
+
+                if (this.gridMap[goalRight[0], goalRight[1]].isVisited() == false)
+                {
                     this.gridMap[goalRight[0], goalRight[1]].setVisited(true);
 
                     neighbors.Enqueue(id);
@@ -226,21 +244,29 @@ namespace GeometryFriendsAgents
             this.gridMap[goal_3.getX(), goal_3.getY()].setVisited(true);
             this.gridMap[goal_4.getX(), goal_4.getY()].setVisited(true);
 
-            neighbors = this.getNeighbors(goal_1, neighbors, 1);
-            neighbors = this.getNeighbors(goal_2, neighbors, 1);
-            neighbors = this.getNeighbors(goal_3, neighbors, 1);
-            neighbors = this.getNeighbors(goal_4, neighbors, 1);
+            // Set goals cells heuristic initial value
+            this.gridMap[goal_1.getX(), goal_1.getY()].setHeuristic(0);
+            this.gridMap[goal_2.getX(), goal_2.getY()].setHeuristic(0);
+            this.gridMap[goal_3.getX(), goal_3.getY()].setHeuristic(0);
+            this.gridMap[goal_4.getX(), goal_4.getY()].setHeuristic(0);
 
-            int heuristic_value = 2;
+            neighbors = this.getNeighbors(goal_1, neighbors);
+            neighbors = this.getNeighbors(goal_2, neighbors);
+            neighbors = this.getNeighbors(goal_3, neighbors);
+            neighbors = this.getNeighbors(goal_4, neighbors);
+
+            // Set neighbors cells heuristic initial value
+            this.gridMap[goal_1.getX(), goal_1.getY()].setHeuristic(0);
+            this.gridMap[goal_2.getX(), goal_2.getY()].setHeuristic(0);
+            this.gridMap[goal_3.getX(), goal_3.getY()].setHeuristic(0);
+            this.gridMap[goal_4.getX(), goal_4.getY()].setHeuristic(0);
 
             while (neighbors.Count != 0)
             {
                 int curr_cell_id = neighbors.Dequeue();
                 Cell curr_cell = this.getCellByID(curr_cell_id);
 
-                neighbors = this.getNeighbors(curr_cell, neighbors, heuristic_value);
-
-                heuristic_value++;
+                neighbors = this.getNeighbors(curr_cell, neighbors);
             }
         }
 

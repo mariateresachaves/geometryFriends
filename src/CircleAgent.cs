@@ -113,7 +113,7 @@ namespace GeometryFriendsAgents
         {
             this.grid.setCellObstacle(rectanglePlatformsInfo);
             this.grid.setCellObstacle(obstaclesInfo);
-
+            //NOTE: Implement setCellObstacle before calcHeuristicValues
             this.grid.calcHeuristicValues(collectiblesInfo[0].X, collectiblesInfo[0].Y);
         }
 
