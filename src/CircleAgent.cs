@@ -126,10 +126,52 @@ namespace GeometryFriendsAgents
             //adjacency matrix
             initAdjacencyMatrix();
 
+            ArrayList goal_nodes = defineGoals();
+            MyNode start_node = graph.getStart();
+            ArrayList path = new ArrayList();
+
+            graph.setGridMap(this.grid);
+            graph.setAdjacencyMatrix(this.adjacencyMatrix_actions);
+            graph.setAgent(Utils.CIRCLE_AGENT);
+
+            StreamWriter sw_path = new StreamWriter("path.csv");
+
+            foreach (MyNode goal in goal_nodes)
+            {
+                this.grid.calcHeuristicValues(goal.getCell().getXCoord(), goal.getCell().getYCoord());
+
+                path = graph.search(start_node, goal);
+
+                foreach (MyNode node_path in path)
+                {
+                    sw_path.Write(node_path.getID() + ";");
+                }
+                sw_path.WriteLine();
+
+                start_node = (MyNode)path[path.Count - 1];
+
+                this.grid.reset();
+            }
+
+            sw_path.Close();
+
             //send a message to the rectangle informing that the circle setup is complete and show how to pass an attachment: a pen object
             messages.Add(new AgentMessage("Setup complete, testing to send an object as an attachment.", new Pen(Color.AliceBlue)));
 
             DebugSensorsInfo();
+        }
+
+        public ArrayList defineGoals()
+        {
+            ArrayList goal_nodes = new ArrayList();
+
+            foreach (MyNode node in this.graph.getNodes())
+            {
+                if (node.getCell().isDiamond())
+                    goal_nodes.Add(node);
+            }
+
+            return goal_nodes;
         }
 
         public void SetupGrid()
@@ -147,7 +189,7 @@ namespace GeometryFriendsAgents
             bool findCell = true;
             int[] pos;
 
-            while(findCell)
+            while (findCell)
             {
                 pos = curr.lowerCell();
                 tmp = this.grid.getGridMap()[pos[0], pos[1]];
@@ -185,6 +227,14 @@ namespace GeometryFriendsAgents
             //Obstacle P2 - upper right
             float x2 = obs_x + ((float)obstacle.Width / 2);
             float y2 = obs_y - ((float)obstacle.Height / 2);
+
+            //Obstacle P3 - lower right
+            float x3 = obs_x + ((float)obstacle.Width / 2);
+            float y3 = obs_y + ((float)obstacle.Height / 2);
+
+            //Obstacle P4 - lower left
+            float x4 = obs_x - ((float)obstacle.Width / 2);
+            float y4 = obs_y + ((float)obstacle.Height / 2);
 
             int[] pos;
 
@@ -329,6 +379,107 @@ namespace GeometryFriendsAgents
                 if (c2_translate != null)
                     this.graph.addNode(new MyNode(c2_translate, MyNode.nodeType.Platform));
             }
+
+            //Cell of position P3
+            Cell c3 = this.grid.getCellByCoords(x3, y3);
+            Cell c3_tunnel = null;
+            Cell tmp_3 = new Cell();
+            bool find_cell_3 = true;
+            Cell current_3 = null;
+            bool emptySpace_3 = false;
+
+            pos = c3.leftCell();
+            if (pos != null)
+                current_3 = this.grid.getGridMap()[pos[0], pos[1]];
+
+            pos = current_3.lowerCell();
+            float c3_lower_height = Utils.INFINITY;
+            if (pos != null)
+            {
+                current_3 = this.grid.getGridMap()[pos[0], pos[1]];
+                c3_lower_height = current_3.getYCoord();
+            }
+
+
+            if (current_3 != null)
+            {
+                while (find_cell_3)
+                {
+                    pos = current_3.lowerCell();
+                    if (pos != null)
+                        tmp_3 = this.grid.getGridMap()[pos[0], pos[1]];
+
+                    if (emptySpace_3 && (tmp_3.isPlatform() || tmp_3.isBottom()))
+                    {
+                        c3_tunnel = current_3;
+                        find_cell_3 = false;
+                    }
+
+                    if (!tmp_3.isPlatform() && !tmp_3.isBottom())
+                        emptySpace_3 = true;
+
+
+                    current_3 = tmp_3;
+                }
+
+                float height = Math.Abs(c3_lower_height - c3_tunnel.getYCoord());
+
+                if (c3_tunnel != null && height < Utils.SMALL_RADIUS)
+                {
+                    MyNode node_3 = new MyNode(c3_tunnel, MyNode.nodeType.Tunnel);
+                    node_3.setTunnel(height);
+                    this.graph.addNode(node_3);
+                }
+
+            }
+
+            //Cell of position P4
+            Cell c4 = this.grid.getCellByCoords(x4, y4);
+            Cell c4_tunnel = null;
+            Cell tmp_4 = new Cell();
+            bool find_cell_4 = true;
+            Cell current_4 = null;
+            bool emptySpace_4 = false;
+
+            pos = c4.lowerCell();
+            float c4_lower_height = Utils.INFINITY;
+            if (pos != null)
+            {
+                current_4 = this.grid.getGridMap()[pos[0], pos[1]];
+                c4_lower_height = current_4.getYCoord();
+            }
+
+            if (current_4 != null)
+            {
+                while (find_cell_4)
+                {
+                    pos = current_4.lowerCell();
+                    if (pos != null)
+                        tmp_4 = this.grid.getGridMap()[pos[0], pos[1]];
+
+                    if (emptySpace_4 && (tmp_4.isPlatform() || tmp_4.isBottom()))
+                    {
+                        c4_tunnel = current_4;
+                        find_cell_4 = false;
+                    }
+
+                    if (!tmp_4.isPlatform() && !tmp_4.isBottom())
+                        emptySpace_4 = true;
+
+
+                    current_4 = tmp_4;
+                }
+
+                float height = Math.Abs(c4_lower_height - c4_tunnel.getYCoord());
+
+                if (c4_tunnel != null && height < Utils.SMALL_RADIUS)
+                {
+                    MyNode node_4 = new MyNode(c4_tunnel, MyNode.nodeType.Tunnel);
+                    node_4.setTunnel(height);
+                    this.graph.addNode(node_4);
+                }
+
+            }
         }
 
         public void addNodeDiamond(Cell diamond)
@@ -337,8 +488,7 @@ namespace GeometryFriendsAgents
             Cell curr = diamond;
             bool findCell = true;
             int[] pos;
-            int id;
-
+            
             while (findCell)
             {
                 pos = curr.lowerCell();
@@ -350,8 +500,8 @@ namespace GeometryFriendsAgents
                     findCell = false;
                     float height = curr.getYCoord() - diamond.getYCoord();
 
-                    if(height < Utils.TRESHOLD_DIAMOND)
-                        this.graph.addNode(new MyNode(curr, MyNode.nodeType.Goal));
+                    if (height < Utils.TRESHOLD_DIAMOND)
+                        this.graph.addNode(new MyNode(curr, MyNode.nodeType.LowGoal));
 
                     else
                     {
@@ -359,9 +509,9 @@ namespace GeometryFriendsAgents
                         this.addNodeFallDown(diamond, MyNode.nodeType.ToDiamond);
                     }
 
-                    
+
                 }
-               
+
                 curr = tmp;
             }
         }
@@ -378,6 +528,7 @@ namespace GeometryFriendsAgents
             foreach (CollectibleRepresentation diamond in collectiblesInfo)
             {
                 Cell c = this.grid.getCellByCoords(diamond.X, diamond.Y);
+                c.setDiamond(true);
                 this.addNodeDiamond(c);
             }
 
@@ -393,9 +544,9 @@ namespace GeometryFriendsAgents
             this.adjacencyMatrix_directions = new int[nodes.Count, nodes.Count];
             this.adjacencyMatrix_distances = new float[nodes.Count, nodes.Count];
 
-            for(int i = 0; i < nodes.Count; i++)
+            for (int i = 0; i < nodes.Count; i++)
             {
-                for(int j = 0; j < nodes.Count; j++)
+                for (int j = 0; j < nodes.Count; j++)
                 {
                     // no relation between the same node
                     if (i == j)
@@ -413,7 +564,63 @@ namespace GeometryFriendsAgents
             }
         }
 
-        public static ArrayList checkEdgeParameters(MyNode src, MyNode dest)
+        // src always on the left
+        public bool hasHorizontalWall(Cell src, Cell dest)
+        {
+            Cell tmp = new Cell();
+            bool find_cell = true;
+            Cell current = src;
+
+            int[] pos;
+
+            while (find_cell)
+            {
+                pos = current.rightCell();
+                if (pos != null)
+                    tmp = this.grid.getGridMap()[pos[0], pos[1]];
+
+                if (tmp.isPlatform())
+                    return true;
+
+                //Check if end of platform
+                else if (tmp.getX() <= dest.getX())
+                    find_cell = false;
+
+                current = tmp;
+            }
+
+            return false;
+        }
+
+        // src always on the top
+        public bool hasVerticalWall(Cell src, Cell dest)
+        {
+            Cell tmp = new Cell();
+            bool find_cell = true;
+            Cell current = src;
+
+            int[] pos;
+
+            while (find_cell)
+            {
+                pos = current.lowerCell();
+                if (pos != null)
+                    tmp = this.grid.getGridMap()[pos[0], pos[1]];
+
+                if (tmp.isPlatform())
+                    return true;
+
+                //Check if end of platform
+                else if (tmp.getY() >= dest.getY())
+                    find_cell = false;
+
+                current = tmp;
+            }
+
+            return false;
+        }
+
+        public ArrayList checkEdgeParameters(MyNode src, MyNode dest)
         {
             float deltaX = src.getCellXCoord() - dest.getCellXCoord();
             float deltaY = src.getCellYCoord() - dest.getCellYCoord();
@@ -484,19 +691,47 @@ namespace GeometryFriendsAgents
             }
 
             // Choose action
+
+            // DIAMOND ON AIR CAN ONLY GO TO HIS FALLDOWN POINT
+            if (deltaX == 0 && src.getType() == MyNode.nodeType.Goal && dest.getType() == MyNode.nodeType.ToDiamond)
+            {
+                if (deltaY > 0 && !this.hasVerticalWall(dest.getCell(), src.getCell()))
+                    action = (int)Actions.Small;
+                else if (deltaY < 0 && !this.hasVerticalWall(src.getCell(), dest.getCell()))
+                    action = (int)Actions.Small;
+            }
+
             // GROW
-            if (dest.isDiamond() && direction == (int)Direction.Up && Math.Abs(deltaY - Utils.GRID_SIZE) <= Utils.BIG_RADIUS && Math.Abs(deltaY - Utils.GRID_SIZE) > Utils.SMALL_RADIUS)
+            else if (dest.isDiamond() && direction == (int)Direction.Up && Math.Abs(Math.Abs(deltaY) - Utils.GRID_SIZE) <= Utils.BIG_RADIUS && Math.Abs(deltaY - Utils.GRID_SIZE) > Utils.SMALL_RADIUS && src.getType() != MyNode.nodeType.Goal)
                 action = (int)Actions.Big;
 
+            // TODO: Understand the missing 19 pixels
+
             // JUMP TO DIAMOND OR PLATFORM
-            else if (deltaY > 0 && deltaY > Utils.SMALL_RADIUS && deltaY < (Utils.JUMP_HEIGHT + Utils.MAX_MORPH_UP))
-                action = (int)Actions.Jump;
+            else if (deltaX == 0 && deltaY > Utils.SMALL_RADIUS && deltaY <= (2 * Utils.DIAMOND_TIP + 2 * Utils.SMALL_RADIUS + Utils.MAX_MORPH_UP + Utils.JUMP_HEIGHT) && src.getType() != MyNode.nodeType.Goal)
+            {
+                if (deltaY > 0 && !this.hasVerticalWall(dest.getCell(), src.getCell()))
+                    action = (int)Actions.Jump;
+                else if (deltaY < 0 && !this.hasVerticalWall(src.getCell(), dest.getCell()))
+                    action = (int)Actions.Jump;
+            }                
 
             // NO SPECIAL ACTION - NORMAL RADIUS SIZE
-            else if (deltaY < (Utils.JUMP_HEIGHT + Utils.MAX_MORPH_UP))
-                action = (int)Actions.Small;
+            else if (deltaY <= Utils.GRID_SIZE && src.getType() != MyNode.nodeType.Goal) // circle can roll through 1 cell height platform
+            {
+                if (deltaX > 0 && !this.hasHorizontalWall(dest.getCell(), src.getCell()))
+                    action = (int)Actions.Small;
+                else if (deltaX < 0 && !this.hasHorizontalWall(src.getCell(), dest.getCell()))
+                    action = (int)Actions.Small;
+
+                if (deltaY > 0 && !this.hasVerticalWall(dest.getCell(), src.getCell()))
+                    action = (int)Actions.Small;
+                else if (deltaY < 0 && !this.hasVerticalWall(src.getCell(), dest.getCell()))
+                    action = (int)Actions.Small;
+            }
 
             ArrayList ret = new ArrayList();
+
             ret.Add(action);
             ret.Add(direction);
             ret.Add(distance);
@@ -552,8 +787,7 @@ namespace GeometryFriendsAgents
              JUMP = 3
              GROW = 4
             */
-            //currentAction = possibleMoves[rnd.Next(possibleMoves.Count)];
-            currentAction = possibleMoves[3];
+            currentAction = possibleMoves[rnd.Next(possibleMoves.Count)];
 
             //send a message to the rectangle agent telling what action it chose
             messages.Add(new AgentMessage("Going to :" + currentAction));
@@ -720,10 +954,12 @@ namespace GeometryFriendsAgents
                             color = GeometryFriends.XNAStub.Color.HotPink;
                         else if (node.getType() == MyNode.nodeType.ToFall)
                             color = GeometryFriends.XNAStub.Color.Blue;
-                        else if(node.getType() == MyNode.nodeType.FallDownPoint)
+                        else if (node.getType() == MyNode.nodeType.FallDownPoint)
                             color = GeometryFriends.XNAStub.Color.MediumTurquoise;
                         else if (node.getType() == MyNode.nodeType.ToDiamond)
                             color = GeometryFriends.XNAStub.Color.White;
+                        else if (node.getType() == MyNode.nodeType.Tunnel)
+                            color = GeometryFriends.XNAStub.Color.Aquamarine;
 
                         newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(coord_x, coord_y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), color));
                         newDebugInfo.Add(DebugInformationFactory.CreateTextDebugInfo(new PointF(coord_x, coord_y), num_node.ToString(), GeometryFriends.XNAStub.Color.DarkOrange));

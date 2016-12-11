@@ -5,7 +5,10 @@ namespace GeometryFriendsAgents
 {
 	public class MyNode
 	{
-        public enum nodeType { Start, Platform, ToFall, FallDownPoint, Goal, ToDiamond };
+        public enum nodeType { Start, Platform, ToFall, FallDownPoint, Goal, LowGoal, ToDiamond, Tunnel };
+
+        private static int last_id = 0;
+        private int id;
 
 		private Cell cell; //this is an easier way to access Cells on the GridMap
 
@@ -13,8 +16,9 @@ namespace GeometryFriendsAgents
 		private MyNode parent;
 
 		private nodeType type;
+        private float tunnel;
 
-		public MyNode()
+        public MyNode()
 		{
 			this.edges = new ArrayList();
 			this.parent = null;
@@ -26,6 +30,7 @@ namespace GeometryFriendsAgents
 			this.parent = null;
 			this.cell = _cell;
             this.type = _type;
+            this.id = last_id++;
 		}
 
         /*********************/
@@ -84,6 +89,11 @@ namespace GeometryFriendsAgents
             return this.cell.isDiamond();
         }
 
+        public float getTunnel()
+        {
+            return this.tunnel;
+        }
+
         /*********************/
         /*      SETTERS      */
         /*********************/
@@ -116,6 +126,15 @@ namespace GeometryFriendsAgents
 		{
 			this.edges.Add(new MyEdge(this, dst));
 		}
-                
-	}
+
+        public void setTunnel(float height)
+        {
+            this.tunnel = height;
+        }
+
+        public int getID()
+        {
+            return this.id;
+        }
+    }
 }

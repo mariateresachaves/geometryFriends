@@ -392,5 +392,11 @@ namespace GeometryFriendsAgents
 
             return false;
         }
+
+        public void reset()
+        {
+            this.heuristic_value = Utils.INFINITY;
+            this.visited = false;
+        }
     }
 }

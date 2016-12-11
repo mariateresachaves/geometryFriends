@@ -275,6 +275,12 @@ namespace GeometryFriendsAgents
             }
         }
 
+        public void reset()
+        {
+            foreach (Cell c in gridMap)
+                c.reset();
+        }
+
 
     }
 }

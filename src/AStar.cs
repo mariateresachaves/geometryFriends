@@ -26,8 +26,10 @@ namespace GeometryFriendsAgents
 
 		private GridMap gridMap;
 		private Graph graph;
+        private int[,] adjacencyMatrix_actions;
 
-		private MyNode start, goal;
+
+        private MyNode start, goal;
 
 		private int completeDistance;
 
@@ -46,11 +48,15 @@ namespace GeometryFriendsAgents
 			this.graph = _graph;
 			this.start = _start;
 			this.goal = _goal;
+            this.adjacencyMatrix_actions = graph.getAdjacencyMatrix();
 
 			openList = new ArrayList();
 			closedList = new ArrayList();
 
-			cameFrom = new Dictionary<MyNode, MyNode>();
+            fScore = new Dictionary<MyNode, int>();
+            gScore = new Dictionary<MyNode, int>();
+
+            cameFrom = new Dictionary<MyNode, MyNode>();
 		}
 
         /// <summary>
@@ -58,9 +64,33 @@ namespace GeometryFriendsAgents
         /// </summary>
         /// <returns> Returns the children of a given node. </returns>
 		public ArrayList getChildren(MyNode _node)
-		{	
-			return _node.getChildren();
-		}
+		{
+            ArrayList children = new ArrayList();
+            ArrayList graph_nodes = graph.getNodes();
+
+            int i = 0;
+
+            bool notFound = true;
+
+            while(notFound)
+            {
+                MyNode tmp = (MyNode)graph_nodes[i];
+                if (tmp.getCellID() == _node.getCellID())
+                    notFound = false;
+                else
+                    i++;
+
+            }
+
+            for (int j = 0; j < graph_nodes.Count; j++)
+            {
+                if (this.adjacencyMatrix_actions[i, j] != 0)
+                    children.Add(graph_nodes[j]);
+            }
+
+            return children;
+
+        }
 
         /// <summary>
         /// Function to calculate the heuristic value from a node to another.
@@ -85,7 +115,7 @@ namespace GeometryFriendsAgents
 		public MyNode lowestFScore(ArrayList nodes)
 		{
 			int cellValue;
-			int minimum = -Utils.INFINITY;
+			int minimum = Utils.INFINITY;
 
 			MyNode lowestNode = new MyNode();
 
@@ -93,7 +123,7 @@ namespace GeometryFriendsAgents
 			{
 				cellValue = gridMap.getCellByID(node.getCellID()).getHeuristic();
 
-				if (cellValue < minimum)
+				if (cellValue < minimum && cellValue != -1) //-1 is a platform!!
 				{
 					lowestNode = node;
 					minimum = cellValue;
@@ -168,17 +198,18 @@ namespace GeometryFriendsAgents
 				openList.Remove(current);
 				closedList.Add(current);
 
-				ArrayList children = current.getChildren(); //children is the same as neighbors
+				ArrayList children = this.getChildren(current); //children is the same as neighbors
 
 				foreach(MyNode child in children) 
 				{
+
 					if (closedList.Contains(child)) //Ignore the neighbor which is already evaluated.
 						continue;
 
 					//What is the distanceBetween? UNCOMMENT THE FOLLOWING LINE!
-					//tentativeGScore = gScore[current] + distanceBetween(current, child);
+					tentativeGScore = gScore[current] + heuristicValue(current, child);
 
-					if (!openList.Contains(child)) // Discover a new node
+					if (!openList.Contains(child) && child.getType() != MyNode.nodeType.Tunnel) // Discover a new node
 						openList.Add(child);
 					else if (tentativeGScore >= gScore[child])
 						continue;
@@ -203,7 +234,22 @@ namespace GeometryFriendsAgents
 				route.Add(current);
 			}
 
-			return route;
+            route.Reverse();
+
+            if(route != null)
+            {
+                for (int i = 0; i < route.Count; i++)
+                {
+                    MyNode node = (MyNode)route[i];
+                    if(node.getType() == MyNode.nodeType.Tunnel)
+                    {
+                        route.RemoveRange(i, route.Count - i);
+                        break;
+                    }
+                }
+            }
+
+            return route;
 		}
 
 		public int getCompleteDistance()

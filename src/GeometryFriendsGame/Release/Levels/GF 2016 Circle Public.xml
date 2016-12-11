@@ -79,6 +79,7 @@
       <Obstacle width="224" height="144" X="1016" Y="536" centered="false" />
       <Obstacle width="128" height="32" X="152" Y="568" centered="false" />
       <Obstacle width="48" height="112" X="440" Y="456" centered="false" />
+      <Obstacle width="464" height="16" X="40" Y="744" centered="false" />
     </BlackObstacles>
     <YellowObstacles>
       <Obstacle width="128" height="32" X="568" Y="376" centered="false" />

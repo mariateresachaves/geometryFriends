@@ -9,8 +9,11 @@ namespace GeometryFriendsAgents
     {
 		private ArrayList nodes;
 		private AStar astar;
+        private int[,] adjacencyMatrix_actions;
 
-		private GridMap gridMap;
+        private String agent;
+
+        private GridMap gridMap;
 
         public Graph() 
 		{
@@ -43,15 +46,56 @@ namespace GeometryFriendsAgents
 			return null;
 		}
 
+        public MyNode getStart()
+        {
+            MyNode start = null;
+
+            foreach(MyNode node in this.nodes)
+            {
+                if (node.getType() == MyNode.nodeType.Start)
+                    start = node;
+            }
+
+            return start;
+        }
+
+        public int[,] getAdjacencyMatrix()
+        {
+            return this.adjacencyMatrix_actions;
+        }
+
         /*********************/
         /*      SETTERS      */
         /*********************/
 
+        public void setGridMap(GridMap _gridMap)
+        {
+            this.gridMap = _gridMap;
+        }
 
+        public void setAdjacencyMatrix(int[,] _adjacencyMatrix_actions)
+        {
+            this.adjacencyMatrix_actions = _adjacencyMatrix_actions;
+        }
+
+        public void setAgent(String _agent)
+        {
+            this.agent = _agent;
+        }
 
         /**********************/
         /*      METHODSs      */
         /**********************/
+
+        public ArrayList search(MyNode _start, MyNode _goal)
+        {
+            this.astar = new AStar(this.gridMap, this, _start, _goal);
+            ArrayList path = this.astar.search();
+
+            //ArrayList path = new ArrayList();
+
+            return path;
+        }
 
         public Boolean addNode(MyNode node)
         {

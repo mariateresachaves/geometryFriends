@@ -21,11 +21,16 @@ namespace GeometryFriendsAgents
 
         public const int SMALL_RADIUS = 40;
         public const int BIG_RADIUS = 60;
-        public const int JUMP_HEIGHT = 276;
+        public const int JUMP_HEIGHT = 289;
 
         public const int MAX_MORPH_UP = 200;
         // public const int MAX_MORPH_DOWN = ???; /TODO
 
+        public const int DIAMOND_TIP = 20;
+
         public const int INFINITY = 5000;
+
+        public const String CIRCLE_AGENT = "circle";
+        public const String RECTANGLE_AGENT = "rectangle";
     }
 }
