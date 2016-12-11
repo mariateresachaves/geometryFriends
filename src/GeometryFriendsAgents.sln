@@ -8,9 +8,9 @@ EndProject
 Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "GeometryFriends", "GeometryFriendsGame\Release\GeometryFriends.exe", "{B5941093-30E0-4F25-98C0-DB13CC604E43}"
 	ProjectSection(DebuggerProjectSystem) = preProject
 		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = C:\Users\up201306842\Desktop\aiad\geometryFriends\src\GeometryFriendsGame\Release\GeometryFriends.exe
+		Executable = C:\Users\up200904082\Desktop\aiad\geometryFriends\src\GeometryFriendsGame\Release\GeometryFriends.exe
 		RemoteMachine = DESKTOP-GTNE9BB
-		StartingDirectory = C:\Users\up201306842\Desktop\aiad\geometryFriends\src\GeometryFriendsGame\Release
+		StartingDirectory = C:\Users\up200904082\Desktop\aiad\geometryFriends\src\GeometryFriendsGame\Release
 		Arguments = --log-to-file
 		Environment = Default
 		LaunchingEngine = 00000000-0000-0000-0000-000000000000

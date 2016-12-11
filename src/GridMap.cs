@@ -278,7 +278,10 @@ namespace GeometryFriendsAgents
         public void reset()
         {
             foreach (Cell c in gridMap)
-                c.reset();
+            {
+                if(c.getHeuristic() != -1)
+                    c.reset();
+            }
         }
 
 
