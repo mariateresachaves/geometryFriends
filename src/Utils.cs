@@ -19,6 +19,13 @@ namespace GeometryFriendsAgents
 
         public const int TRESHOLD_DIAMOND = 80;
 
+        public const int SMALL_RADIUS = 40;
+        public const int BIG_RADIUS = 60;
+        public const int JUMP_HEIGHT = 276;
+
+        public const int MAX_MORPH_UP = 200;
+        // public const int MAX_MORPH_DOWN = ???; /TODO
+
         public const int INFINITY = 5000;
     }
 }

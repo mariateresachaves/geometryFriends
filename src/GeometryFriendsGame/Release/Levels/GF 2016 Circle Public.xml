@@ -68,6 +68,7 @@
       <Collectible X="1144" Y="184" />
       <Collectible X="376" Y="104" />
       <Collectible X="888" Y="104" />
+      <Collectible X="600" Y="568" />
     </Collectibles>
     <GreenObstacles />
     <BlackObstacles>

@@ -6,7 +6,9 @@ using GeometryFriends.AI.Debug;
 using GeometryFriends.AI.Interfaces;
 using GeometryFriends.AI.Perceptions.Information;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 
@@ -58,8 +60,18 @@ namespace GeometryFriendsAgents
         private GridMap grid;
 
         //Graph info
-
         private Graph graph;
+
+        //Adjacency matrix
+        public int[,] adjacencyMatrix_actions;
+        public int[,] adjacencyMatrix_directions;
+        public float[,] adjacencyMatrix_distances;
+
+        //Directions
+        enum Direction { Right, RightDown, Down, LeftDown, Left, LeftUp, Up, RightUp };
+
+        //Actions
+        enum Actions { NoEdge, Small, Big, Jump };
 
         public CircleAgent()
         {
@@ -76,6 +88,7 @@ namespace GeometryFriendsAgents
             possibleMoves.Add(Moves.ROLL_LEFT);
             possibleMoves.Add(Moves.ROLL_RIGHT);
             possibleMoves.Add(Moves.JUMP);
+            possibleMoves.Add(Moves.GROW);
 
             //history keeping
             uncaughtCollectibles = new List<CollectibleRepresentation>();
@@ -106,8 +119,12 @@ namespace GeometryFriendsAgents
             grid = new GridMap();
             SetupGrid();
 
+            //graph
             graph = new Graph();
             SetupGraph();
+
+            //adjacency matrix
+            initAdjacencyMatrix();
 
             //send a message to the rectangle informing that the circle setup is complete and show how to pass an attachment: a pen object
             messages.Add(new AgentMessage("Setup complete, testing to send an object as an attachment.", new Pen(Color.AliceBlue)));
@@ -123,15 +140,12 @@ namespace GeometryFriendsAgents
             this.grid.calcHeuristicValues(collectiblesInfo[0].X, collectiblesInfo[0].Y);
         }
 
-        public void addNodeFallDown(Cell toFall, string type)
+        public void addNodeFallDown(Cell toFall, MyNode.nodeType type)
         {
             Cell tmp = null;
             Cell curr = toFall;
             bool findCell = true;
             int[] pos;
-            int id;
-
-            MyNode.nodeType type_enum = (MyNode.nodeType)Enum.Parse(typeof(MyNode.nodeType), type);
 
             while(findCell)
             {
@@ -142,9 +156,7 @@ namespace GeometryFriendsAgents
                 if (tmp.isBottom())
                 {
                     findCell = false;
-
-                    id = curr.getID();
-                    this.graph.addNode(new MyNode(id, type_enum));
+                    this.graph.addNode(new MyNode(curr, type));
                 }
 
                 else
@@ -152,8 +164,7 @@ namespace GeometryFriendsAgents
                     if (tmp.isPlatform())
                     {
                         findCell = false;
-                        id = curr.getID();
-                        this.graph.addNode(new MyNode(id, type_enum));
+                        this.graph.addNode(new MyNode(curr, type));
                     }
                 }
 
@@ -163,8 +174,6 @@ namespace GeometryFriendsAgents
 
         public void graphNodeObstacles(ObstacleRepresentation obstacle)
         {
-            int id;
-
             //Obstacle CENTER position
             float obs_x = obstacle.X;
             float obs_y = obstacle.Y;
@@ -231,26 +240,19 @@ namespace GeometryFriendsAgents
 
             //Platform with wall on the left side
             if (c1_upper != null && c1_upper_left == null && !c1_upper.isPlatform() && !c1_upper.isTop())
-            {
-                id = c1_upper.getID();
-                this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
-            }
+                this.graph.addNode(new MyNode(c1_upper, MyNode.nodeType.Platform));
 
             //Platform with falldown on the left side
             if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && !c1_upper_left.isPlatform() && !c1_upper.isTop())
             {
-                id = c1_upper_left.getID();
-                this.graph.addNode(new MyNode(id, MyNode.nodeType.ToFall));
+                this.graph.addNode(new MyNode(c1_upper_left, MyNode.nodeType.ToFall));
 
-                this.addNodeFallDown(c1_upper_left, MyNode.nodeType.FallDownPoint.ToString());
+                this.addNodeFallDown(c1_upper_left, MyNode.nodeType.FallDownPoint);
             }
 
             //Platform in the middle or with wall on the right side
             if (c1_upper != null && c1_upper_left != null && !c1_upper.isPlatform() && c1_upper_left.isPlatform() && !c1_upper.isTop())
-            {
-                id = c1_upper.getID();
-                this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
-            }
+                this.graph.addNode(new MyNode(c1_upper, MyNode.nodeType.Platform));
 
             //Case where c1 has a platform on top
             Cell c1_translate = null;
@@ -279,10 +281,7 @@ namespace GeometryFriendsAgents
                 }
 
                 if (c1_translate != null)
-                {
-                    id = c1_translate.getID();
-                    this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
-                }
+                    this.graph.addNode(new MyNode(c1_translate, MyNode.nodeType.Platform));
             }
 
             //Add second node
@@ -290,18 +289,14 @@ namespace GeometryFriendsAgents
             //Falldown right
             if (c2_upper != null && c2_upper_left != null && !c2_upper.isPlatform() && !c2_upper_left.isPlatform() && !c2_upper.isTop())
             {
-                id = c2_upper.getID();
-                this.graph.addNode(new MyNode(id, MyNode.nodeType.ToFall));
+                this.graph.addNode(new MyNode(c2_upper, MyNode.nodeType.ToFall));
 
-                this.addNodeFallDown(c2_upper, MyNode.nodeType.FallDownPoint.ToString());
+                this.addNodeFallDown(c2_upper, MyNode.nodeType.FallDownPoint);
             }
 
             //Has right platform
             if (c2_upper != null && c2_upper_left != null && c2_upper.isPlatform() && !c2_upper_left.isPlatform() && !c2_upper.isTop())
-            {
-                id = c2_upper_left.getID();
-                this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
-            }
+                this.graph.addNode(new MyNode(c2_upper_left, MyNode.nodeType.Platform));
 
             //Case where c2 has a platform on top
             Cell c2_translate = null;
@@ -332,10 +327,7 @@ namespace GeometryFriendsAgents
                 Cell a = c2_translate;
 
                 if (c2_translate != null)
-                {
-                    id = c2_translate.getID();
-                    this.graph.addNode(new MyNode(id, MyNode.nodeType.Platform));
-                }
+                    this.graph.addNode(new MyNode(c2_translate, MyNode.nodeType.Platform));
             }
         }
 
@@ -359,15 +351,12 @@ namespace GeometryFriendsAgents
                     float height = curr.getYCoord() - diamond.getYCoord();
 
                     if(height < Utils.TRESHOLD_DIAMOND)
-                    {
-                        id = curr.getID();
-                    
-                        this.graph.addNode(new MyNode(id, MyNode.nodeType.Goal));
-                    }
+                        this.graph.addNode(new MyNode(curr, MyNode.nodeType.Goal));
+
                     else
                     {
-                        this.graph.addNode(new MyNode(diamond.getID(), MyNode.nodeType.Goal));
-                        this.addNodeFallDown(diamond, MyNode.nodeType.ToDiamond.ToString());
+                        this.graph.addNode(new MyNode(diamond, MyNode.nodeType.Goal));
+                        this.addNodeFallDown(diamond, MyNode.nodeType.ToDiamond);
                     }
 
                     
@@ -379,9 +368,6 @@ namespace GeometryFriendsAgents
 
         public void SetupGraph()
         {
-
-            int id;
-
             foreach (ObstacleRepresentation obstacle in obstaclesInfo)
                 this.graphNodeObstacles(obstacle);
 
@@ -395,10 +381,127 @@ namespace GeometryFriendsAgents
                 this.addNodeDiamond(c);
             }
 
-            id = grid.getCellByCoords(circleInfo.X, circleInfo.Y).getID();
+            this.graph.addNode(new MyNode(grid.getCellByCoords(circleInfo.X, circleInfo.Y), MyNode.nodeType.Start));
+        }
 
-            this.graph.addNode(new MyNode(id, MyNode.nodeType.Start));
+        public void initAdjacencyMatrix()
+        {
+            ArrayList nodes = this.graph.getNodes();
+            ArrayList parameters = new ArrayList();
 
+            this.adjacencyMatrix_actions = new int[nodes.Count, nodes.Count];
+            this.adjacencyMatrix_directions = new int[nodes.Count, nodes.Count];
+            this.adjacencyMatrix_distances = new float[nodes.Count, nodes.Count];
+
+            for(int i = 0; i < nodes.Count; i++)
+            {
+                for(int j = 0; j < nodes.Count; j++)
+                {
+                    // no relation between the same node
+                    if (i == j)
+                        continue;
+
+                    MyNode src = (MyNode)nodes[i];
+                    MyNode dest = (MyNode)nodes[j];
+
+                    parameters = checkEdgeParameters(src, dest);
+
+                    this.adjacencyMatrix_actions[i, j] = (int)parameters[0];
+                    this.adjacencyMatrix_directions[i, j] = (int)parameters[1];
+                    this.adjacencyMatrix_distances[i, j] = (float)parameters[2];
+                }
+            }
+        }
+
+        public static ArrayList checkEdgeParameters(MyNode src, MyNode dest)
+        {
+            float deltaX = src.getCellXCoord() - dest.getCellXCoord();
+            float deltaY = src.getCellYCoord() - dest.getCellYCoord();
+
+            // no edge between the nodes
+            int action = (int)Actions.NoEdge;
+            int direction = -1;
+            float distance = -1;
+
+            // RIGHT
+            if (deltaX < 0 && deltaY == 0)
+            {
+                direction = (int)Direction.Right;
+                distance = Math.Abs(deltaX); //Euclidean distance
+            }
+
+            // RIGHT DOWN
+            // diagonal edge forbidden for diamonds
+            if (deltaX < 0 && deltaY < 0 && !(src.isDiamond() || dest.isDiamond()))
+            {
+                direction = (int)Direction.RightDown;
+                distance = (float)Math.Sqrt(Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2)); //Euclidean distance
+            }
+
+            // DOWN
+            if (deltaX == 0 && deltaY < 0)
+            {
+                direction = (int)Direction.Down;
+                distance = Math.Abs(deltaY);
+            }
+
+            // LEFT DOWN
+            // diagonal edge forbidden for diamonds
+            if (deltaX > 0 && deltaY < 0 && !(src.isDiamond() || dest.isDiamond()))
+            {
+                direction = (int)Direction.LeftDown;
+                distance = (float)Math.Sqrt(Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2)); //Euclidean distance
+            }
+
+            // LEFT
+            if (deltaX > 0 && deltaY == 0)
+            {
+                direction = (int)Direction.Left;
+                distance = deltaX;
+            }
+
+            // LEFT UP
+            // diagonal edge forbidden for diamonds
+            if (deltaX > 0 && deltaY > 0 && !(src.isDiamond() || dest.isDiamond()))
+            {
+                direction = (int)Direction.LeftUp;
+                distance = (float)Math.Sqrt(Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2)); //Euclidean distance
+            }
+
+            // UP
+            if (deltaX == 0 && deltaY > 0)
+            {
+                direction = (int)Direction.Up;
+                distance = deltaY;
+            }
+
+            // RIGHT UP
+            // diagonal edge forbidden for diamonds
+            if (deltaX < 0 && deltaY > 0 && !(src.isDiamond() || dest.isDiamond()))
+            {
+                direction = (int)Direction.RightUp;
+                distance = (float)Math.Sqrt(Math.Pow(deltaX, 2) + Math.Pow(deltaY, 2)); //Euclidean distance
+            }
+
+            // Choose action
+            // GROW
+            if (dest.isDiamond() && direction == (int)Direction.Up && Math.Abs(deltaY - Utils.GRID_SIZE) <= Utils.BIG_RADIUS && Math.Abs(deltaY - Utils.GRID_SIZE) > Utils.SMALL_RADIUS)
+                action = (int)Actions.Big;
+
+            // JUMP TO DIAMOND OR PLATFORM
+            else if (deltaY > 0 && deltaY > Utils.SMALL_RADIUS && deltaY < (Utils.JUMP_HEIGHT + Utils.MAX_MORPH_UP))
+                action = (int)Actions.Jump;
+
+            // NO SPECIAL ACTION - NORMAL RADIUS SIZE
+            else if (deltaY < (Utils.JUMP_HEIGHT + Utils.MAX_MORPH_UP))
+                action = (int)Actions.Small;
+
+            ArrayList ret = new ArrayList();
+            ret.Add(action);
+            ret.Add(direction);
+            ret.Add(distance);
+
+            return ret;
         }
 
         //implements abstract circle interface: registers updates from the agent's sensors that it is up to date with the latest environment information
@@ -418,6 +521,7 @@ namespace GeometryFriendsAgents
             }
 
             DebugSensorsInfo();
+            Log.LogInformation("<" + currentAction.ToString() + "> " + "Circle height - " + circleInfo.Y);
         }
 
         //implements abstract circle interface: provides the circle agent with a simulator to make predictions about the future level state
@@ -448,7 +552,8 @@ namespace GeometryFriendsAgents
              JUMP = 3
              GROW = 4
             */
-            currentAction = possibleMoves[rnd.Next(possibleMoves.Count)];
+            //currentAction = possibleMoves[rnd.Next(possibleMoves.Count)];
+            currentAction = possibleMoves[3];
 
             //send a message to the rectangle agent telling what action it chose
             messages.Add(new AgentMessage("Going to :" + currentAction));
@@ -599,6 +704,7 @@ namespace GeometryFriendsAgents
                     }
 
                     // Print Graph nodes
+                    int num_node = 0;
 
                     foreach (MyNode node in graph.getNodes())
                     {
@@ -620,6 +726,9 @@ namespace GeometryFriendsAgents
                             color = GeometryFriends.XNAStub.Color.White;
 
                         newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(coord_x, coord_y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), color));
+                        newDebugInfo.Add(DebugInformationFactory.CreateTextDebugInfo(new PointF(coord_x, coord_y), num_node.ToString(), GeometryFriends.XNAStub.Color.DarkOrange));
+
+                        num_node++;
                     }
 
                     StreamWriter sw = new StreamWriter("lindodemorrer.csv");
@@ -635,6 +744,27 @@ namespace GeometryFriendsAgents
                     }
 
                     sw.Close();
+
+                    StreamWriter sw_actions = new StreamWriter("actions.csv");
+                    StreamWriter sw_directions = new StreamWriter("directions.csv");
+                    StreamWriter sw_distances = new StreamWriter("distances.csv");
+
+                    for (int i = 0; i < this.graph.getNodes().Count; i++)
+                    {
+                        for (int j = 0; j < this.graph.getNodes().Count; j++)
+                        {
+                            sw_actions.Write(this.adjacencyMatrix_actions[i, j] + ";");
+                            sw_directions.Write(this.adjacencyMatrix_directions[i, j] + ";");
+                            sw_distances.Write(this.adjacencyMatrix_distances[i, j] + ";");
+                        }
+                        sw_actions.WriteLine();
+                        sw_directions.WriteLine();
+                        sw_distances.WriteLine();
+                    }
+
+                    sw_actions.Close();
+                    sw_directions.Close();
+                    sw_distances.Close();
 
                     debugInfo = newDebugInfo.ToArray();
                 }

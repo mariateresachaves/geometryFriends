@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+
 namespace GeometryFriendsAgents
 {
-	class MyNode
+	public class MyNode
 	{
         public enum nodeType { Start, Platform, ToFall, FallDownPoint, Goal, ToDiamond };
 
-		private int cellID; //this is an easier way to access Cells on the GridMap
+		private Cell cell; //this is an easier way to access Cells on the GridMap
 
 		private ArrayList edges;
 		private MyNode parent;
@@ -19,11 +20,11 @@ namespace GeometryFriendsAgents
 			this.parent = null;
 		}
 
-		public MyNode(int _cellID, nodeType _type)
+		public MyNode(Cell _cell, nodeType _type)
 		{
 			this.edges = new ArrayList();
 			this.parent = null;
-			this.cellID = _cellID;
+			this.cell = _cell;
             this.type = _type;
 		}
 
@@ -31,9 +32,9 @@ namespace GeometryFriendsAgents
         /*      GETTERS      */
         /*********************/
 
-        public int getCellID() 
+        public Cell getCell() 
 		{
-			return cellID;
+			return cell;
 		}
 
 		public ArrayList getEdges()
@@ -63,13 +64,33 @@ namespace GeometryFriendsAgents
 			return children;
 		}
 
+        public int getCellID()
+        {
+            return this.cell.getID();
+        }
+
+        public float getCellXCoord()
+        {
+            return this.cell.getXCoord();
+        }
+
+        public float getCellYCoord()
+        {
+            return this.cell.getYCoord();
+        }
+
+        public bool isDiamond()
+        {
+            return this.cell.isDiamond();
+        }
+
         /*********************/
         /*      SETTERS      */
         /*********************/
 
-        public void setCellID(int _cellID)
+        public void setCell(Cell _cell)
         {
-            this.cellID = _cellID;
+            this.cell = _cell;
         }
 
         public void setEdges(ArrayList _edges)
