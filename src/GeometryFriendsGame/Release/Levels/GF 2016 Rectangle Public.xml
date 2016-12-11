@@ -18,7 +18,10 @@
     <YellowObstacles />
     <GreenElevators />
     <OrangeElevators />
-	<TimeLimit value="40" />
+    <TimeLimit value="40" />
+    <HighScores>
+      <HighScore name="No Name" value="36" />
+    </HighScores>
   </Level1>
   <Level2>
     <Description />
@@ -46,7 +49,7 @@
     <YellowObstacles />
     <GreenElevators />
     <OrangeElevators />
-	<TimeLimit value="65" />
+    <TimeLimit value="65" />
   </Level2>
   <Level3>
     <Description />

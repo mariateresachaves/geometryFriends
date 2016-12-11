@@ -12,7 +12,11 @@ namespace GeometryFriendsAgents
 
 		private GridMap gridMap;
 
-		public Graph() 
+        public static int[,] adjacencyMatrix_actions;
+        public static int[,] adjacencyMatrix_directions;
+        public static int[,] adjacencyMatrix_distances;
+
+        public Graph() 
 		{
 			nodes = new ArrayList();
 		}

@@ -339,6 +339,44 @@ namespace GeometryFriendsAgents
             }
         }
 
+        public void addNodeDiamond(Cell diamond)
+        {
+            Cell tmp = null;
+            Cell curr = diamond;
+            bool findCell = true;
+            int[] pos;
+            int id;
+
+            while (findCell)
+            {
+                pos = curr.lowerCell();
+                tmp = this.grid.getGridMap()[pos[0], pos[1]];
+
+                //Floor or platform 
+                if (tmp.isBottom() || tmp.isPlatform())
+                {
+                    findCell = false;
+                    float height = curr.getYCoord() - diamond.getYCoord();
+
+                    if(height < Utils.TRESHOLD_DIAMOND)
+                    {
+                        id = curr.getID();
+                    
+                        this.graph.addNode(new MyNode(id, MyNode.nodeType.Goal));
+                    }
+                    else
+                    {
+                        this.graph.addNode(new MyNode(diamond.getID(), MyNode.nodeType.Goal));
+                        this.addNodeFallDown(diamond, MyNode.nodeType.ToDiamond.ToString());
+                    }
+
+                    
+                }
+               
+                curr = tmp;
+            }
+        }
+
         public void SetupGraph()
         {
 
@@ -354,10 +392,7 @@ namespace GeometryFriendsAgents
             foreach (CollectibleRepresentation diamond in collectiblesInfo)
             {
                 Cell c = this.grid.getCellByCoords(diamond.X, diamond.Y);
-                id = c.getID();
-                this.graph.addNode(new MyNode(id, MyNode.nodeType.Goal));
-
-                this.addNodeFallDown(c, MyNode.nodeType.ToDiamond.ToString());
+                this.addNodeDiamond(c);
             }
 
             id = grid.getCellByCoords(circleInfo.X, circleInfo.Y).getID();
@@ -574,7 +609,7 @@ namespace GeometryFriendsAgents
                         if (node.getType() == MyNode.nodeType.Platform)
                             color = GeometryFriends.XNAStub.Color.Green;
                         else if (node.getType() == MyNode.nodeType.Goal)
-                            color = GeometryFriends.XNAStub.Color.Purple;
+                            color = GeometryFriends.XNAStub.Color.Black;
                         else if (node.getType() == MyNode.nodeType.Start)
                             color = GeometryFriends.XNAStub.Color.HotPink;
                         else if (node.getType() == MyNode.nodeType.ToFall)
@@ -582,7 +617,7 @@ namespace GeometryFriendsAgents
                         else if(node.getType() == MyNode.nodeType.FallDownPoint)
                             color = GeometryFriends.XNAStub.Color.MediumTurquoise;
                         else if (node.getType() == MyNode.nodeType.ToDiamond)
-                            color = GeometryFriends.XNAStub.Color.MediumPurple;
+                            color = GeometryFriends.XNAStub.Color.White;
 
                         newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(coord_x, coord_y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), color));
                     }

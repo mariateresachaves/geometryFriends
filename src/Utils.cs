@@ -17,6 +17,8 @@ namespace GeometryFriendsAgents
         public const int TRANSLATION_X = 40;
         public const int TRANSLATION_Y = 40 - GRID_SIZE; // To take into consideration the floor and the ceiling
 
+        public const int TRESHOLD_DIAMOND = 80;
+
         public const int INFINITY = 5000;
     }
 }
