@@ -1,11 +1,14 @@
 aiad level 1
+PONTOS CORRETOS
 PATH CORRETO
 path -> 8 - 4 - 3 - 4 - 2 - 1 - 7 - 6
 
 aiad level 2
-PONTOS INCORRETOS
+PONTOS CORRETOS
+path -> 26 - 24 - 23
 
 aiad level 3
-PONTOS INCORRETOS
+PONTOS CORRETOS
+path -> 31 - 2 - 1 - 9 - 8 - 23 - 22 - 23 - 25 - 24 - 25 - 17 - 16 - 27 - 26 - 27 - 29
 
 aiad level 4

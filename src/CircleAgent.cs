@@ -1005,10 +1005,10 @@ namespace GeometryFriendsAgents
                         else if (node.getType() == MyNode.nodeType.ToDiamond)
                             color = GeometryFriends.XNAStub.Color.White;
                         else if (node.getType() == MyNode.nodeType.Tunnel)
-                            color = GeometryFriends.XNAStub.Color.Aquamarine;
+                            color = GeometryFriends.XNAStub.Color.Orange;
 
                         newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(coord_x, coord_y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), color));
-                        newDebugInfo.Add(DebugInformationFactory.CreateTextDebugInfo(new PointF(coord_x, coord_y), num_node.ToString(), GeometryFriends.XNAStub.Color.DarkOrange));
+                        newDebugInfo.Add(DebugInformationFactory.CreateTextDebugInfo(new PointF(coord_x, coord_y), num_node.ToString(), GeometryFriends.XNAStub.Color.Brown));
 
                         num_node++;
                     }
