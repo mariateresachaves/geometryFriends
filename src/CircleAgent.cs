@@ -1008,7 +1008,7 @@ namespace GeometryFriendsAgents
                             color = GeometryFriends.XNAStub.Color.Aquamarine;
 
                         newDebugInfo.Add(DebugInformationFactory.CreateRectangleDebugInfo(new PointF(coord_x, coord_y), new Size(Utils.GRID_SIZE, Utils.GRID_SIZE), color));
-                        newDebugInfo.Add(DebugInformationFactory.CreateTextDebugInfo(new PointF(coord_x, coord_y), node.getCellID().ToString(), GeometryFriends.XNAStub.Color.DarkOrange));
+                        newDebugInfo.Add(DebugInformationFactory.CreateTextDebugInfo(new PointF(coord_x, coord_y), num_node.ToString(), GeometryFriends.XNAStub.Color.DarkOrange));
 
                         num_node++;
                     }
